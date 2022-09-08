@@ -7,10 +7,20 @@ import {
   SportsEsports,
 } from "@mui/icons-material";
 import Navbar from "../../components/navbar/Navbar";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import SingleInfoCard from "../../components/cards/SingleInfoCard";
 import LeagueTableCard from "../../components/league/LeagueTableCard";
 import Header from "../../components/common/Header";
+import { styled } from "@mui/system";
+
+const GradientTypography = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== "league",
+})<{ league: string }>(({ theme, league }) => ({
+  background: `linear-gradient(45deg, ${theme.palette.custom[league]} 33%, ${theme.palette.text.primary} 100%)`,
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent",
+  fontWeight: "bold",
+}));
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const name = context.query.name;
@@ -63,6 +73,16 @@ const LeaguePage: NextPage<{ league: string }> = ({ league }) => {
         <Navbar />
         <Box sx={{ flexGrow: 1, p: 2 }} alignItems="center">
           <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <GradientTypography
+                variant="h2"
+                gutterBottom
+                textAlign="center"
+                league={league}
+              >
+                {league.charAt(0).toUpperCase() + league.slice(1)} League
+              </GradientTypography>
+            </Grid>
             <Grid container item spacing={2}>
               <Grid item xs={12} md={6} lg={3}>
                 <SingleInfoCard

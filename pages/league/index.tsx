@@ -15,6 +15,7 @@ import {
 import ProLeagueCard from "../../components/home/ProLeagueCard";
 import SmallLeagueCard from "../../components/home/SmallLeagueCard";
 import Header from "../../components/common/Header";
+import { styled } from "@mui/system";
 
 type ServerInfo = {
   [key: string]: {
@@ -22,6 +23,13 @@ type ServerInfo = {
     icon: React.ReactElement;
   };
 };
+
+const GradientTypography = styled(Typography)(({ theme }) => ({
+  background: `linear-gradient(45deg, ${theme.palette.custom.pro} 0%, ${theme.palette.custom.bronze} 100%)`,
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent",
+  fontWeight: "bold",
+}));
 
 const serverInfoData: ServerInfo = {
   "server ip": {
@@ -82,14 +90,9 @@ const Home: NextPage = () => {
         <Box sx={{ flexGrow: 1, p: 2 }} alignItems="center">
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Typography
-                variant="h2"
-                component="h2"
-                gutterBottom
-                textAlign="center"
-              >
+              <GradientTypography variant="h2" gutterBottom textAlign="center">
                 Explicit Bouncers Promod League
-              </Typography>
+              </GradientTypography>
             </Grid>
             {Object.keys(serverInfo).map((key, index) => (
               <Grid item xs={12} sm={6} lg={3} key={index}>

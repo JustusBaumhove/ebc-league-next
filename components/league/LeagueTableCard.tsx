@@ -124,7 +124,7 @@ const ProLeagueCard = ({
       <CardContent>
         {data.length === 0 ? (
           <Typography component="div" variant="body2">
-            No results found.
+            No data available.
           </Typography>
         ) : (
           <TableContainer>
