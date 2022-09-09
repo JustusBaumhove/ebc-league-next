@@ -25,7 +25,7 @@ type ServerInfo = {
 };
 
 const GradientTypography = styled(Typography)(({ theme }) => ({
-  background: `linear-gradient(45deg, ${theme.palette.custom.pro} 0%, ${theme.palette.custom.bronze} 100%)`,
+  background: `linear-gradient(45deg, ${theme.palette.custom.pro} 10%,${theme.palette.custom.gold} 35% ,${theme.palette.custom.silver} 65% ,${theme.palette.custom.bronze} 90%)`,
   WebkitBackgroundClip: "text",
   WebkitTextFillColor: "transparent",
   fontWeight: "bold",
