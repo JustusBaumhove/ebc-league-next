@@ -31,7 +31,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   ) {
     return {
       redirect: {
-        destination: "/",
+        destination: "/bronze",
         permanent: false,
       },
     };
@@ -53,7 +53,7 @@ const LeaguePage: NextPage<{ league: string }> = ({ league }) => {
   });
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/league/averages/${league}`, {
+    fetch(`/league/api/league/averages/${league}`, {
       method: "GET",
       headers: {
         accept: "application/json",

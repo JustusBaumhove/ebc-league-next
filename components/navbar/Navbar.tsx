@@ -142,7 +142,7 @@ const Navbar = () => {
             </Menu>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Link key="index" href={`/league`}>
+            <Link key="index" href={`/`}>
               <Button
                 key="index"
                 onClick={handleCloseNavMenu}

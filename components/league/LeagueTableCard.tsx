@@ -53,7 +53,7 @@ const ProLeagueCard = ({
       setLeagueS(league);
       setPage(0);
     }
-    fetch(`/api/league/${league}/${page}`, {
+    fetch(`/league/api/league/${league}/${page}`, {
       method: "GET",
       headers: {
         accept: "application/json",

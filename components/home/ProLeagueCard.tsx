@@ -24,7 +24,7 @@ const ProLeagueCard = () => {
   };
 
   useEffect(() => {
-    fetch(`/api/league/pro/0`, {
+    fetch(`/league/api/league/pro/0`, {
       method: "GET",
       headers: {
         accept: "application/json",
