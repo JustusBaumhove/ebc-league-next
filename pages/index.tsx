@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import type { NextPage } from "next";
-import Navbar from "../../components/navbar/Navbar";
-import SingleInfoCard from "../../components/cards/SingleInfoCard";
+import Navbar from "../components/navbar/Navbar";
+import SingleInfoCard from "../components/cards/SingleInfoCard";
 import { Box, Card, Grid, Typography } from "@mui/material";
 import PublicIcon from "@mui/icons-material/Public";
 import {
@@ -12,9 +12,9 @@ import {
   SafetyCheck,
   SportsEsports,
 } from "@mui/icons-material";
-import ProLeagueCard from "../../components/home/ProLeagueCard";
-import SmallLeagueCard from "../../components/home/SmallLeagueCard";
-import Header from "../../components/common/Header";
+import ProLeagueCard from "../components/home/ProLeagueCard";
+import SmallLeagueCard from "../components/home/SmallLeagueCard";
+import Header from "../components/common/Header";
 import { styled } from "@mui/system";
 
 type ServerInfo = {

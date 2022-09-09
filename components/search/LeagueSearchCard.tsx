@@ -191,10 +191,7 @@ const LeagueSearchCard = ({ name }: { name: string }) => {
                       <TableCell>{row["name"]}</TableCell>
                       <TableCell align="right">
                         <MUILink
-                          href={
-                            "/league/" +
-                            encodeURIComponent(league.toLowerCase())
-                          }
+                          href={"/" + encodeURIComponent(league.toLowerCase())}
                           underline="hover"
                         >
                           {league}

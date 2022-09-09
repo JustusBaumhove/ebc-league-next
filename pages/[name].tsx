@@ -6,11 +6,11 @@ import {
   Person,
   SportsEsports,
 } from "@mui/icons-material";
-import Navbar from "../../components/navbar/Navbar";
+import Navbar from "../components/navbar/Navbar";
 import { Box, Card, Grid, Typography } from "@mui/material";
-import SingleInfoCard from "../../components/cards/SingleInfoCard";
-import LeagueTableCard from "../../components/league/LeagueTableCard";
-import Header from "../../components/common/Header";
+import SingleInfoCard from "../components/cards/SingleInfoCard";
+import LeagueTableCard from "../components/league/LeagueTableCard";
+import Header from "../components/common/Header";
 import { styled } from "@mui/system";
 
 const GradientTypography = styled(Typography, {
@@ -31,7 +31,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   ) {
     return {
       redirect: {
-        destination: "/league/bronze",
+        destination: "/",
         permanent: false,
       },
     };

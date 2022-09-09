@@ -20,7 +20,7 @@ const SmallLeagueCard = ({ league }: { league: string }) => {
   const [data, setData] = React.useState<any>([]);
 
   const handleRedirect = () => {
-    router.push(`/league/${encodeURIComponent(league)}`).then(null);
+    router.push(`/${encodeURIComponent(league)}`).then(null);
   };
 
   useEffect(() => {

@@ -1,8 +1,8 @@
 import type { GetServerSideProps, NextPage } from "next";
 import { Box, Grid } from "@mui/material";
-import Navbar from "../../../components/navbar/Navbar";
-import LeagueSearchCard from "../../../components/search/LeagueSearchCard";
-import Header from "../../../components/common/Header";
+import Navbar from "../../components/navbar/Navbar";
+import LeagueSearchCard from "../../components/search/LeagueSearchCard";
+import Header from "../../components/common/Header";
 
 type Props = {
   name: string;

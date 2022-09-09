@@ -76,9 +76,7 @@ const Navbar = () => {
   const handleSearch = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
       event.preventDefault();
-      router
-        .push(`/league/search/${encodeURIComponent(searchText)}`)
-        .then(null);
+      router.push(`/search/${encodeURIComponent(searchText)}`).then(null);
     }
   };
 
@@ -126,7 +124,7 @@ const Navbar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              <Link key="index" href={`/league`}>
+              <Link key="index" href={`/`}>
                 <MenuItem key="index" onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Home</Typography>
                 </MenuItem>
@@ -134,7 +132,7 @@ const Navbar = () => {
               {pages.map((page) => (
                 <Link
                   key={page}
-                  href={`/league/${encodeURIComponent(page.toLowerCase())}`}
+                  href={`/${encodeURIComponent(page.toLowerCase())}`}
                 >
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">{page}</Typography>
@@ -156,7 +154,7 @@ const Navbar = () => {
             {pages.map((page) => (
               <Link
                 key={page}
-                href={`/league/${encodeURIComponent(page.toLowerCase())}`}
+                href={`/${encodeURIComponent(page.toLowerCase())}`}
               >
                 <Button
                   key={page}

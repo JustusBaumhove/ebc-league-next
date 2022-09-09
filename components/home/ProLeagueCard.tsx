@@ -20,7 +20,7 @@ const ProLeagueCard = () => {
   const [data, setData] = React.useState<any>([]);
 
   const handleRedirect = () => {
-    router.push(`/league/pro`).then(null);
+    router.push(`/pro`).then(null);
   };
 
   useEffect(() => {
