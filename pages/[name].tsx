@@ -23,28 +23,20 @@ const GradientTypography = styled(Typography, {
 }));
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const name = context.query.name;
-
-  if (
-    typeof name !== "string" ||
-    !["bronze", "silver", "gold", "pro"].includes(name)
-  ) {
-    return {
-      redirect: {
-        destination: "/bronze",
-        permanent: false,
-      },
-    };
-  }
+  const name = "" + context.query.name;
 
   return {
     props: {
       league: name,
+      color: "custom." + name.toLowerCase(),
     },
   };
 };
 
-const LeaguePage: NextPage<{ league: string }> = ({ league }) => {
+const LeaguePage: NextPage<{ league: string; color: string }> = ({
+  league,
+  color,
+}) => {
   const [averages, setAverages] = useState({
     players: 0,
     ratio: 0,
@@ -53,7 +45,7 @@ const LeaguePage: NextPage<{ league: string }> = ({ league }) => {
   });
 
   useEffect(() => {
-    fetch(`/league/api/league/averages/${league}`, {
+    fetch(`/api/league/averages/${league}`, {
       method: "GET",
       headers: {
         accept: "application/json",
@@ -62,8 +54,6 @@ const LeaguePage: NextPage<{ league: string }> = ({ league }) => {
       .then((res) => res.json())
       .then((data) => data.length > 0 && setAverages(data[0]));
   }, [league]);
-
-  const color = "custom." + league.toLowerCase();
 
   return (
     <div>

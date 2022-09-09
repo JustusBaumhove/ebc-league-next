@@ -81,7 +81,7 @@ const LeagueSearchCard = ({ name }: { name: string }) => {
       setNameS(name);
       setPage(0);
     }
-    fetch(`/league/api/league/search/${encodeURIComponent(name)}/${page}`, {
+    fetch(`/api/league/search/${encodeURIComponent(name)}/${page}`, {
       method: "GET",
       headers: {
         accept: "application/json",
@@ -200,8 +200,7 @@ const LeagueSearchCard = ({ name }: { name: string }) => {
                         >
                           <MUILink
                             href={
-                              "/league/" +
-                              encodeURIComponent(league.toLowerCase())
+                              "/" + encodeURIComponent(league.toLowerCase())
                             }
                             underline="hover"
                           >

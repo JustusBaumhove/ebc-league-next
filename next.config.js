@@ -6,7 +6,6 @@ const nextConfig = {
     locales: ["en"],
     defaultLocale: "en",
   },
-  basePath: "/league",
 };
 
 module.exports = nextConfig;

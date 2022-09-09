@@ -70,7 +70,7 @@ const Home: NextPage = () => {
   const [serverInfo, setServerInfo] = useState<ServerInfo>(serverInfoData);
 
   useEffect(() => {
-    fetch("/league/api/league/server/info")
+    fetch("/api/league/server/info")
       .then((res) => res.json())
       .then((data) => {
         let newData = { ...serverInfo };

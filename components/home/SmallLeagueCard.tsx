@@ -24,7 +24,7 @@ const SmallLeagueCard = ({ league }: { league: string }) => {
   };
 
   useEffect(() => {
-    fetch(`/league/api/league/${league}/0`, {
+    fetch(`/api/league/${league}/0`, {
       method: "GET",
       headers: {
         accept: "application/json",
