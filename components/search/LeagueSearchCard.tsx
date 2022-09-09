@@ -14,9 +14,10 @@ import {
   Typography,
   Link as MUILink,
   CircularProgress,
+  Divider,
 } from "@mui/material";
 import { Search } from "@mui/icons-material";
-import { Box } from "@mui/system";
+import { Box, Stack } from "@mui/system";
 
 type LeagueRows = Array<{
   id: number;
@@ -190,12 +191,25 @@ const LeagueSearchCard = ({ name }: { name: string }) => {
                       <TableCell>{page * 25 + index + 1}</TableCell>
                       <TableCell>{row["name"]}</TableCell>
                       <TableCell align="right">
-                        <MUILink
-                          href={"/" + encodeURIComponent(league.toLowerCase())}
-                          underline="hover"
+                        <Stack
+                          component={"div"}
+                          direction="row"
+                          spacing={1}
+                          divider={<Divider orientation="vertical" flexItem />}
+                          justifyContent="flex-end"
                         >
-                          {league}
-                        </MUILink>
+                          <MUILink
+                            href={
+                              "/" + encodeURIComponent(league.toLowerCase())
+                            }
+                            underline="hover"
+                          >
+                            {league}
+                          </MUILink>
+                          <Typography marginLeft={1} fontSize="inherit">
+                            #{row["lrank"]}
+                          </Typography>
+                        </Stack>
                       </TableCell>
                       <TableCell align="right">{row["skill"]}</TableCell>
                       <TableCell align="right">
