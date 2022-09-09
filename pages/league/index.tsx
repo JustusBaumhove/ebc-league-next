@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import Navbar from "../../components/navbar/Navbar";
 import SingleInfoCard from "../../components/cards/SingleInfoCard";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Card, Grid, Typography } from "@mui/material";
 import PublicIcon from "@mui/icons-material/Public";
 import {
   EmojiEvents,
@@ -90,9 +90,11 @@ const Home: NextPage = () => {
         <Box sx={{ flexGrow: 1, p: 2 }} alignItems="center">
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <GradientTypography variant="h2" gutterBottom textAlign="center">
-                Explicit Bouncers Promod League
-              </GradientTypography>
+              <Card sx={{ padding: 1 }}>
+                <GradientTypography variant="h2" textAlign="center">
+                  Explicit Bouncers Promod League
+                </GradientTypography>
+              </Card>
             </Grid>
             {Object.keys(serverInfo).map((key, index) => (
               <Grid item xs={12} sm={6} lg={3} key={index}>

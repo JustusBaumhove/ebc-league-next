@@ -7,7 +7,7 @@ import {
   SportsEsports,
 } from "@mui/icons-material";
 import Navbar from "../../components/navbar/Navbar";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Card, Grid, Typography } from "@mui/material";
 import SingleInfoCard from "../../components/cards/SingleInfoCard";
 import LeagueTableCard from "../../components/league/LeagueTableCard";
 import Header from "../../components/common/Header";
@@ -74,14 +74,15 @@ const LeaguePage: NextPage<{ league: string }> = ({ league }) => {
         <Box sx={{ flexGrow: 1, p: 2 }} alignItems="center">
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <GradientTypography
-                variant="h2"
-                gutterBottom
-                textAlign="center"
-                league={league}
-              >
-                {league.charAt(0).toUpperCase() + league.slice(1)} League
-              </GradientTypography>
+              <Card sx={{ padding: 1 }}>
+                <GradientTypography
+                  variant="h2"
+                  textAlign="center"
+                  league={league}
+                >
+                  {league.charAt(0).toUpperCase() + league.slice(1)} League
+                </GradientTypography>
+              </Card>
             </Grid>
             <Grid container item spacing={2}>
               <Grid item xs={12} md={6} lg={3}>
