@@ -24,7 +24,7 @@ export default async function handler(
     "server ip": data[0].value + ":" + data[1].value,
     "current map": data[19].value.split("_")[1],
     "current players": data[11].value + "/" + data[35].value,
-    round: data[8].value,
+    gametype: data[3].value === "sr" ? "Search & Rescue" : "Search & Destroy",
     uptime: data[21].value,
     "total competing players": playersData[0].players.toString(),
     "favourite map": mapData[0].name.split("_")[1],

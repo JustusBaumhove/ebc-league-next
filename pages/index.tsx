@@ -44,7 +44,7 @@ const serverInfoData: ServerInfo = {
     content: "...",
     icon: <Groups fontSize="inherit" />,
   },
-  round: {
+  gametype: {
     content: "...",
     icon: <SportsEsports fontSize="inherit" />,
   },
