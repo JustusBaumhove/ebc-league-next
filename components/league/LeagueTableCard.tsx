@@ -17,7 +17,7 @@ import {
 import { Star } from "@mui/icons-material";
 import { Box } from "@mui/system";
 
-type LeagueRows = Array<{
+type LeagueRow = {
   id: number;
   name: string;
   skill: number;
@@ -25,7 +25,9 @@ type LeagueRows = Array<{
   kills: number;
   deaths: number;
   prestige: number;
-}>;
+};
+
+type LeagueRows = Array<LeagueRow>;
 
 const ProLeagueCard = ({
   league,
@@ -69,7 +71,7 @@ const ProLeagueCard = ({
   const color = "custom." + league.toLowerCase();
 
   return (
-    <Card sx={{ padding: 1 }}>
+    <Card sx={{ padding: 1 }} aria-label="LeagueTableCard">
       <Grid container spacing={2} direction="row" justifyContent="flex-start">
         <Grid
           container
@@ -87,6 +89,7 @@ const ProLeagueCard = ({
               }}
             >
               <Typography
+                aria-label="Icon"
                 component="div"
                 variant="h2"
                 sx={{ height: "fit-content" }}
@@ -104,6 +107,7 @@ const ProLeagueCard = ({
           alignItems="center"
           xs="auto"
           spacing={4}
+          aria-label="LeagueName"
         >
           <Grid item>
             <Typography component="div" variant="h6">
@@ -191,6 +195,7 @@ const ProLeagueCard = ({
       </CardContent>
       <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
         <Button
+          aria-label="Previous Page"
           variant="contained"
           onClick={decrementPage}
           disabled={page === 0}
@@ -198,6 +203,7 @@ const ProLeagueCard = ({
           Previous
         </Button>
         <Button
+          aria-label="Next page"
           variant="contained"
           onClick={incrementPage}
           disabled={(page + 1) * itemCount >= maxPlayers}
