@@ -84,7 +84,7 @@ const Navbar = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" color="primary">
+      <AppBar position="static" color="primary" aria-label="Navbar">
         <Toolbar>
           <Box>
             <Image
@@ -93,6 +93,7 @@ const Navbar = () => {
               height={50}
               src={Logo}
               alt="Logo"
+              aria-label="Logo"
             />
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -107,6 +108,7 @@ const Navbar = () => {
               <MenuIcon />
             </IconButton>
             <Menu
+              aria-label="menu"
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
@@ -167,7 +169,7 @@ const Navbar = () => {
             ))}
           </Box>
           <Box sx={{ flexGrow: 1 }} />
-          <Search>
+          <Search aria-label="Search">
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
