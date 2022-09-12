@@ -35,7 +35,7 @@ const ProLeagueCard = () => {
   }, []);
 
   return (
-    <Card sx={{ padding: 1 }}>
+    <Card sx={{ padding: 1 }} aria-label="ProLeagueCard">
       <Grid container spacing={2} direction="row" justifyContent="flex-start">
         <Grid
           container
@@ -91,7 +91,7 @@ const ProLeagueCard = () => {
       <CardContent>
         {data.length === 0 ? (
           <Typography component="div" variant="body2">
-            No data available
+            No data available.
           </Typography>
         ) : (
           <TableContainer>
