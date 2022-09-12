@@ -10,7 +10,7 @@ type Props = {
 };
 
 const SingleInfoCard = ({ title, content, color, icon }: Props) => (
-  <Card sx={{ padding: 1 }}>
+  <Card aria-label="InfoCard" sx={{ padding: 1 }}>
     <Grid container spacing={2} direction="row" justifyContent="flex-start">
       <Grid
         container
@@ -28,6 +28,7 @@ const SingleInfoCard = ({ title, content, color, icon }: Props) => (
             }}
           >
             <Typography
+              aria-label="Icon"
               component="div"
               variant="h2"
               sx={{ height: "fit-content" }}
@@ -47,12 +48,12 @@ const SingleInfoCard = ({ title, content, color, icon }: Props) => (
         xs="auto"
       >
         <Grid item>
-          <Typography component="div" variant="h6">
+          <Typography component="div" variant="h6" aria-label="content">
             {content.toUpperCase()}
           </Typography>
         </Grid>
         <Grid item>
-          <Typography component="div" variant="subtitle1">
+          <Typography component="div" variant="subtitle1" aria-label="title">
             {title.toUpperCase()}
           </Typography>
         </Grid>
