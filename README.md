@@ -1,34 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# eBc League
 
-First, run the development server:
+A web application serving a league system for an online gaming community.
+The project is currently deployed on https://www.league.explicitbouncers.com/ 
 
-```bash
-npm run dev
-# or
-yarn dev
+
+
+## Tech Stack
+
+**Client:** React, Material UI, Styled
+
+**Server:** Node, Next.js
+
+**Tests:** Cypress component testing
+
+
+## API Reference
+
+#### Get league
+JSON response with rows of players that are in a certain league.
+```http
+  GET /api/league/[name]/[id]
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `name` | `string` | **Required**. league name |
+| `id` | `integer` | **Required**. offset page id |
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+#### Get averages
+JSON with average stats and the total number of players in a specific league.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+```http
+  GET /api/league/averages/[name]
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `name`      | `string` | **Required**. league name |
 
-## Learn More
+#### Get search
+JSON with players that match a given input name.
 
-To learn more about Next.js, take a look at the following resources:
+```http
+  GET /api/league/search/[name]
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `name`      | `string` | **Required**. search input |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+#### Get server info
+JSON with information about the servers gametype, current map, uptime and so on.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```http
+  GET /api/league/server/info
+```
