@@ -2,7 +2,7 @@
 # eBc League
 
 A web application serving a league system for an online gaming community.
-The project is currently deployed on https://www.league.explicitbouncers.com/ 
+The project is currently deployed on https://league.explicitbouncers.com/ 
 
 
 
