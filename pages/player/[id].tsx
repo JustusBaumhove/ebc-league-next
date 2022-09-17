@@ -22,6 +22,7 @@ import {
 } from "@mui/icons-material";
 import LineChartCard from "../../components/player/LineChartCard";
 import WeaponstatsTableCard from "../../components/player/WeaponstatsTableCard";
+import OpponentsTableCard from "../../components/player/OpponentsTableCard";
 
 type Props = {
   id: number;
@@ -239,7 +240,7 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
               <WeaponstatsTableCard id={id} />
             </Grid>
             <Grid item xs={12} md={6}>
-              Opponents
+              <OpponentsTableCard id={id} />
             </Grid>
           </Grid>
         </Box>

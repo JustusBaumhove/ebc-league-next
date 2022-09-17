@@ -3,6 +3,7 @@ import {
   Card,
   CardContent,
   Grid,
+  Stack,
   Table,
   TableBody,
   TableCell,
@@ -11,19 +12,25 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { MultilineChart } from "@mui/icons-material";
+import {
+  Groups3,
+  TrendingDown,
+  TrendingFlat,
+  TrendingUp,
+} from "@mui/icons-material";
 import React, { useEffect } from "react";
 
-const convertWeaponName = (name: string) => {
-  const split = name.split("_");
-  return split[0].charAt(0).toUpperCase() + split[0].slice(1);
-};
+const trendIcon = (value: number, threshold: number) =>
+  (value > threshold && <TrendingUp fontSize="inherit" color="success" />) ||
+  (value < threshold && <TrendingDown fontSize="inherit" color="error" />) || (
+    <TrendingFlat fontSize="inherit" />
+  );
 
-const WeaponstatsTableCard = ({ id }: { id: number }) => {
+const OpponentsTableCard = ({ id }: { id: number }) => {
   const [data, setData] = React.useState<any>([]);
 
   useEffect(() => {
-    fetch(`/api/league/player/${id}/weaponstats`, {
+    fetch(`/api/league/player/${id}/opponents`, {
       method: "GET",
       headers: {
         accept: "application/json",
@@ -56,7 +63,7 @@ const WeaponstatsTableCard = ({ id }: { id: number }) => {
                 variant="h2"
                 sx={{ height: "fit-content" }}
               >
-                <MultilineChart fontSize="inherit" />
+                <Groups3 fontSize="inherit" />
               </Typography>
             </Card>
           </Grid>
@@ -71,7 +78,7 @@ const WeaponstatsTableCard = ({ id }: { id: number }) => {
         >
           <Grid item>
             <Typography component="div" variant="h6" fontWeight="bold">
-              Weapon usage
+              Opponents
             </Typography>
           </Grid>
         </Grid>
@@ -98,17 +105,31 @@ const WeaponstatsTableCard = ({ id }: { id: number }) => {
                 <TableRow>
                   <TableCell>#</TableCell>
                   <TableCell>Name</TableCell>
-                  <TableCell align="right">Kills</TableCell>
-                  <TableCell align="right">Deaths</TableCell>
+                  <TableCell align="right">Win rate</TableCell>
+                  <TableCell align="right">Confrontations</TableCell>
+                  <TableCell align="right">Skill</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {data.map((row: any, index: number) => (
                   <TableRow key={index}>
                     <TableCell>{index + 1}</TableCell>
-                    <TableCell>{convertWeaponName(row["name"])}</TableCell>
-                    <TableCell align="right">{row["kills"]}</TableCell>
-                    <TableCell align="right">{row["deaths"]}</TableCell>
+                    <TableCell>{row["opponent_name"]}</TableCell>
+                    <TableCell align="right">
+                      <Typography component="div" variant="body2">
+                        {(row["win_rate"] * 100).toFixed(0)}%{" "}
+                        {trendIcon(row["win_rate"], 0.5)}
+                      </Typography>
+                    </TableCell>
+                    <TableCell align="right">
+                      <Stack>
+                        <Typography>{row["confrontations"]}</Typography>
+                        <Typography variant="body2" color="textSecondary">
+                          Kills: {row["kills"]} Deaths: {row["deaths"]}
+                        </Typography>
+                      </Stack>
+                    </TableCell>
+                    <TableCell align="right">{row["opponent_skill"]}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -120,4 +141,4 @@ const WeaponstatsTableCard = ({ id }: { id: number }) => {
   );
 };
 
-export default WeaponstatsTableCard;
+export default OpponentsTableCard;

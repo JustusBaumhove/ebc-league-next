@@ -15,7 +15,7 @@ export default async function handler(
                   JOIN xlr_weaponstats AS xws ON xws.id = xwu.weapon_id
          WHERE x.client_id = ?
          ORDER BY kills DESC
-         LIMIT 7`,
+         LIMIT 10`,
     [id]
   );
 
