@@ -114,7 +114,7 @@ const LineChartCard = ({
           xs="auto"
         >
           <Grid item>
-            <Typography component="div" variant="h6">
+            <Typography component="div" variant="h6" fontWeight="bold">
               {title}
             </Typography>
           </Grid>
@@ -133,7 +133,7 @@ const LineChartCard = ({
                   borderColor: color,
                   backgroundColor: (context: ScriptableContext<"line">) => {
                     const ctx = context.chart.ctx;
-                    const gradient = ctx.createLinearGradient(0, 0, 0, 200);
+                    const gradient = ctx.createLinearGradient(0, 0, 0, 150);
                     gradient.addColorStop(0, color);
                     gradient.addColorStop(1, theme.palette.background.default);
                     return gradient;

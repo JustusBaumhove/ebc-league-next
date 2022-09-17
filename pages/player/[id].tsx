@@ -21,6 +21,7 @@ import {
   SportsEsports,
 } from "@mui/icons-material";
 import LineChartCard from "../../components/player/LineChartCard";
+import WeaponstatsTableCard from "../../components/player/WeaponstatsTableCard";
 
 type Props = {
   id: number;
@@ -107,7 +108,7 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Card>
-                <Typography variant="h2" textAlign="center">
+                <Typography variant="h2" textAlign="center" fontWeight="bold">
                   {overviewData?.name ||
                     (isLoading ? (
                       <CircularProgress />
@@ -235,7 +236,7 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              Weapon stats
+              <WeaponstatsTableCard id={id} />
             </Grid>
             <Grid item xs={12} md={6}>
               Opponents
