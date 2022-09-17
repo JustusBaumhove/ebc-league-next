@@ -93,9 +93,9 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
           skill: data.skill,
           ratio: data.ratio,
         });
-      });
 
-    setIsLoading(false);
+        setIsLoading(false);
+      });
   }, [id]);
 
   return (
@@ -213,7 +213,7 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
                 data={weekData.ratio}
                 labels={weekLabels}
                 isLoading={isLoading}
-                color={theme.palette.secondary.dark}
+                color={theme.palette.warning.dark}
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -223,7 +223,7 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
                 data={weekData.skill}
                 labels={weekLabels}
                 isLoading={isLoading}
-                color={theme.palette.primary.dark}
+                color={theme.palette.warning.dark}
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -233,7 +233,7 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
                 data={weekData.kills}
                 labels={weekLabels}
                 isLoading={isLoading}
-                color={theme.palette.success.dark}
+                color={theme.palette.warning.dark}
               />
             </Grid>
             <Grid item xs={12} md={6}>

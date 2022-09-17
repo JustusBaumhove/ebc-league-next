@@ -56,7 +56,7 @@ const OpponentsTableCard = ({ id }: { id: number }) => {
               sx={{
                 aspectRatio: "1 / 1",
                 padding: 0.5,
-                backgroundColor: `custom.pro`,
+                backgroundColor: `primary.dark`,
               }}
             >
               <Typography
