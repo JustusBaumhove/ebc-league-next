@@ -6,6 +6,7 @@ import {
   CardContent,
   CircularProgress,
   Grid,
+  Link,
   Table,
   TableBody,
   TableCell,
@@ -163,7 +164,11 @@ const ProLeagueCard = ({
                 {data.map((row: any, index: number) => (
                   <TableRow key={index}>
                     <TableCell>{page * itemCount + index + 1}</TableCell>
-                    <TableCell>{row["name"]}</TableCell>
+                    <TableCell>
+                      <Link href={`/player/${row["id"]}`} underline="hover">
+                        {row["name"]}
+                      </Link>
+                    </TableCell>
                     <TableCell align="right">{row["skill"]}</TableCell>
                     <TableCell align="right">
                       {row["ratio"].toFixed(2)}

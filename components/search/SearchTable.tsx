@@ -1,5 +1,6 @@
 import {
   Divider,
+  Link,
   Link as MUILink,
   Table,
   TableBody,
@@ -91,7 +92,11 @@ const SearchTable = ({ rows, page }: { rows: SearchRow[]; page: number }) => (
         return (
           <TableRow key={index}>
             <TableCell>{page * 25 + index + 1}</TableCell>
-            <TableCell>{row["name"]}</TableCell>
+            <TableCell>
+              <Link href={`/player/${row["id"]}`} underline="hover">
+                {row["name"]}
+              </Link>
+            </TableCell>
             <TableCell align="right">
               <Stack
                 component={"div"}

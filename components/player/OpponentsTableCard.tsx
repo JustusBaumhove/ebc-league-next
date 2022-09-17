@@ -3,6 +3,7 @@ import {
   Card,
   CardContent,
   Grid,
+  Link,
   Stack,
   Table,
   TableBody,
@@ -114,7 +115,14 @@ const OpponentsTableCard = ({ id }: { id: number }) => {
                 {data.map((row: any, index: number) => (
                   <TableRow key={index}>
                     <TableCell>{index + 1}</TableCell>
-                    <TableCell>{row["opponent_name"]}</TableCell>
+                    <TableCell>
+                      <Link
+                        href={`/player/${row["opponent_client_id"]}`}
+                        underline="hover"
+                      >
+                        {row["opponent_name"]}
+                      </Link>
+                    </TableCell>
                     <TableCell align="right">
                       <Typography component="div" variant="body2">
                         {(row["win_rate"] * 100).toFixed(0)}%{" "}
