@@ -4,7 +4,12 @@ import Navbar from "../../components/navbar/Navbar";
 import { Box, Card, CircularProgress, Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SingleInfoCard from "../../components/cards/SingleInfoCard";
-import { HourglassBottom, Person } from "@mui/icons-material";
+import { HourglassBottom, Insights, Person } from "@mui/icons-material";
+import LineChartCard from "../../components/player/LineChartCard";
+
+type Props = {
+  id: number;
+};
 
 type Overview = {
   name: string;
@@ -18,19 +23,61 @@ type Overview = {
   curstreak: number;
 };
 
+type WeekData = {
+  rounds: number[];
+  kills: number[];
+  skill: number[];
+  ratio: number[];
+};
+
+const formatStreak = (streak: number) => {
+  if (streak > 0) {
+    return `${streak} win${streak > 1 ? "s" : ""}`;
+  } else if (streak < 0) {
+    return `${-streak} loss${streak < -1 ? "es" : ""}`;
+  } else {
+    return "0";
+  }
+};
+
 export const getServerSideProps: GetServerSideProps = async (context) => ({
   props: {
     id: await context.query.id,
   },
 });
 
-const PlayerPage: NextPage<{ id: number }> = ({ id }) => {
+const PlayerPage: NextPage<Props> = ({ id }) => {
   const [overviewData, setOverviewData] = useState<Overview>();
 
+  const [isLoading, setIsLoading] = useState(true);
+  const [weekLabels, setWeekLabels] = useState<string[]>([]);
+  const [weekData, setWeekData] = useState<WeekData>({
+    rounds: [],
+    kills: [],
+    skill: [],
+    ratio: [],
+  });
+
   useEffect(() => {
+    setIsLoading(true);
+
     fetch(`/api/league/player/${id}/overview`)
       .then((res) => res.json())
       .then((data) => data.length > 0 && setOverviewData(data[0]));
+
+    fetch(`/api/league/player/${id}/weeklystats`)
+      .then((res) => res.json())
+      .then((data) => {
+        setWeekLabels(data.labels);
+        setWeekData({
+          rounds: data.rounds,
+          kills: data.kills,
+          skill: data.skill,
+          ratio: data.ratio,
+        });
+      });
+
+    setIsLoading(false);
   }, [id]);
 
   return (
@@ -45,7 +92,12 @@ const PlayerPage: NextPage<{ id: number }> = ({ id }) => {
             <Grid item xs={12}>
               <Card>
                 <Typography variant="h2" textAlign="center">
-                  {overviewData?.name || <CircularProgress />}
+                  {overviewData?.name ||
+                    (isLoading ? (
+                      <CircularProgress />
+                    ) : (
+                      <Typography variant="h2">Player has no stats</Typography>
+                    ))}
                 </Typography>
               </Card>
             </Grid>
@@ -61,7 +113,7 @@ const PlayerPage: NextPage<{ id: number }> = ({ id }) => {
                     title="First seen"
                     content={new Date(
                       (overviewData?.time_add || 0) * 1000
-                    ).toLocaleString()}
+                    ).toLocaleString("en-GB")}
                     color="custom.pro"
                     icon={<HourglassBottom fontSize="inherit" />}
                   />
@@ -109,7 +161,9 @@ const PlayerPage: NextPage<{ id: number }> = ({ id }) => {
                 <Grid item xs={12} md={6} lg={3}>
                   <SingleInfoCard
                     title="Current Streak"
-                    content={overviewData?.curstreak.toString() || "0"}
+                    content={
+                      overviewData ? formatStreak(overviewData.curstreak) : "0"
+                    }
                     color="custom.pro"
                     icon={<Person fontSize="inherit" />}
                   />
@@ -125,10 +179,40 @@ const PlayerPage: NextPage<{ id: number }> = ({ id }) => {
               </Grid>
             </Grid>
             <Grid item xs={12} md={6}>
-              Playtime Graph
+              <LineChartCard
+                icon={<Insights fontSize="inherit" />}
+                title="Rounds"
+                data={weekData.rounds}
+                labels={weekLabels}
+                isLoading={isLoading}
+              />
             </Grid>
             <Grid item xs={12} md={6}>
-              Kill Death Ratio Graph
+              <LineChartCard
+                icon={<Insights fontSize="inherit" />}
+                title="Kill death ratio"
+                data={weekData.ratio}
+                labels={weekLabels}
+                isLoading={isLoading}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <LineChartCard
+                icon={<Insights fontSize="inherit" />}
+                title="Skill"
+                data={weekData.skill}
+                labels={weekLabels}
+                isLoading={isLoading}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <LineChartCard
+                icon={<Insights fontSize="inherit" />}
+                title="Kills"
+                data={weekData.kills}
+                labels={weekLabels}
+                isLoading={isLoading}
+              />
             </Grid>
             <Grid item xs={12} md={6}>
               Weapon stats
