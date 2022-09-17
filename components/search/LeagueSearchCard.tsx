@@ -111,9 +111,11 @@ const LeagueSearchCard = ({ name }: { name: string }) => {
       </Grid>
       <CardContent>
         {data.length == 0 ? (
-          <Typography component="div" variant="body1">
-            No results found.
-          </Typography>
+          !loading && (
+            <Typography component="div" variant="h6">
+              No results found
+            </Typography>
+          )
         ) : (
           <TableContainer>
             <SearchTable rows={data} page={page} />

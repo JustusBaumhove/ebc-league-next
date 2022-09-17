@@ -19,6 +19,7 @@ import { useRouter } from "next/router";
 const SmallLeagueCard = ({ league }: { league: string }) => {
   const router = useRouter();
   const [data, setData] = React.useState<any>([]);
+  const [loading, setLoading] = React.useState(true);
 
   const handleRedirect = () => {
     router.push(`/${encodeURIComponent(league)}`).then(null);
@@ -32,7 +33,10 @@ const SmallLeagueCard = ({ league }: { league: string }) => {
       },
     })
       .then((res) => res.json())
-      .then((data) => data.length > 0 && setData(data.slice(0, 5)));
+      .then((data) => {
+        data.length > 0 && setData(data.slice(0, 5));
+        setLoading(false);
+      });
   }, [league]);
 
   const color = "custom." + league.toLowerCase();
@@ -94,9 +98,11 @@ const SmallLeagueCard = ({ league }: { league: string }) => {
       </Grid>
       <CardContent>
         {data.length === 0 ? (
-          <Typography component="div" variant="body2">
-            No data available.
-          </Typography>
+          !loading && (
+            <Typography component="div" variant="body2">
+              No data available.
+            </Typography>
+          )
         ) : (
           <TableContainer>
             <Table>

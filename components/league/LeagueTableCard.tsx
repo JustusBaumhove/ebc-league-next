@@ -128,9 +128,11 @@ const ProLeagueCard = ({
       </Grid>
       <CardContent>
         {data.length === 0 ? (
-          <Typography component="div" variant="body2">
-            No data available.
-          </Typography>
+          !loading && (
+            <Typography component="div" variant="body2">
+              No data available.
+            </Typography>
+          )
         ) : (
           <TableContainer>
             <Table>

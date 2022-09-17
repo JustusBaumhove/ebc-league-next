@@ -19,6 +19,7 @@ import { useRouter } from "next/router";
 const ProLeagueCard = () => {
   const router = useRouter();
   const [data, setData] = React.useState<any>([]);
+  const [loading, setLoading] = React.useState(true);
 
   const handleRedirect = () => {
     router.push(`/pro`).then(null);
@@ -32,7 +33,10 @@ const ProLeagueCard = () => {
       },
     })
       .then((res) => res.json())
-      .then((data) => data.length > 0 && setData(data.slice(0, 5)));
+      .then((data) => {
+        data.length > 0 && setData(data.slice(0, 5));
+        setLoading(false);
+      });
   }, []);
 
   return (
@@ -91,9 +95,11 @@ const ProLeagueCard = () => {
       </Grid>
       <CardContent>
         {data.length === 0 ? (
-          <Typography component="div" variant="body2">
-            No data available.
-          </Typography>
+          !loading && (
+            <Typography component="div" variant="body2">
+              No data available.
+            </Typography>
+          )
         ) : (
           <TableContainer>
             <Table>
