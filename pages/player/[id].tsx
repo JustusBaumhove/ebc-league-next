@@ -1,10 +1,25 @@
 import { GetServerSideProps, NextPage } from "next";
 import Header from "../../components/common/Header";
 import Navbar from "../../components/navbar/Navbar";
-import { Box, Card, CircularProgress, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CircularProgress,
+  Grid,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SingleInfoCard from "../../components/cards/SingleInfoCard";
-import { HourglassBottom, Insights, Person } from "@mui/icons-material";
+import {
+  EmojiEvents,
+  HourglassBottom,
+  LinearScale,
+  Person,
+  Poll,
+  Replay,
+  SportsEsports,
+} from "@mui/icons-material";
 import LineChartCard from "../../components/player/LineChartCard";
 
 type Props = {
@@ -47,8 +62,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => ({
 });
 
 const PlayerPage: NextPage<Props> = ({ id }) => {
-  const [overviewData, setOverviewData] = useState<Overview>();
+  const theme = useTheme();
 
+  const [overviewData, setOverviewData] = useState<Overview>();
   const [isLoading, setIsLoading] = useState(true);
   const [weekLabels, setWeekLabels] = useState<string[]>([]);
   const [weekData, setWeekData] = useState<WeekData>({
@@ -123,7 +139,7 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
                     title="Kills"
                     content={overviewData?.kills.toString() || "0"}
                     color="custom.pro"
-                    icon={<Person fontSize="inherit" />}
+                    icon={<SportsEsports fontSize="inherit" />}
                   />
                 </Grid>
                 <Grid item xs={12} md={6} lg={3}>
@@ -137,9 +153,9 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
                 <Grid item xs={12} md={6} lg={3}>
                   <SingleInfoCard
                     title="Ratio"
-                    content={overviewData?.ratio.toFixed(2) || "1.00"}
+                    content={overviewData?.ratio.toFixed(2) || "0"}
                     color="custom.pro"
-                    icon={<Person fontSize="inherit" />}
+                    icon={<EmojiEvents fontSize="inherit" />}
                   />
                 </Grid>
                 <Grid item xs={12} md={6} lg={3}>
@@ -147,7 +163,7 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
                     title="Skill"
                     content={overviewData?.skill.toString() || "0"}
                     color="custom.pro"
-                    icon={<Person fontSize="inherit" />}
+                    icon={<Poll fontSize="inherit" />}
                   />
                 </Grid>
                 <Grid item xs={12} md={6} lg={3}>
@@ -155,7 +171,7 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
                     title="Win streak"
                     content={overviewData?.winstreak.toString() || "0"}
                     color="custom.pro"
-                    icon={<Person fontSize="inherit" />}
+                    icon={<EmojiEvents fontSize="inherit" />}
                   />
                 </Grid>
                 <Grid item xs={12} md={6} lg={3}>
@@ -165,7 +181,7 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
                       overviewData ? formatStreak(overviewData.curstreak) : "0"
                     }
                     color="custom.pro"
-                    icon={<Person fontSize="inherit" />}
+                    icon={<LinearScale fontSize="inherit" />}
                   />
                 </Grid>
                 <Grid item xs={12} md={6} lg={3}>
@@ -173,45 +189,49 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
                     title="Rounds"
                     content={overviewData?.rounds.toString() || "0"}
                     color="custom.pro"
-                    icon={<Person fontSize="inherit" />}
+                    icon={<Replay fontSize="inherit" />}
                   />
                 </Grid>
               </Grid>
             </Grid>
             <Grid item xs={12} md={6}>
               <LineChartCard
-                icon={<Insights fontSize="inherit" />}
+                icon={<Replay fontSize="inherit" />}
                 title="Rounds"
                 data={weekData.rounds}
                 labels={weekLabels}
                 isLoading={isLoading}
+                color={theme.palette.warning.dark}
               />
             </Grid>
             <Grid item xs={12} md={6}>
               <LineChartCard
-                icon={<Insights fontSize="inherit" />}
+                icon={<EmojiEvents fontSize="inherit" />}
                 title="Kill death ratio"
                 data={weekData.ratio}
                 labels={weekLabels}
                 isLoading={isLoading}
+                color={theme.palette.secondary.dark}
               />
             </Grid>
             <Grid item xs={12} md={6}>
               <LineChartCard
-                icon={<Insights fontSize="inherit" />}
+                icon={<Poll fontSize="inherit" />}
                 title="Skill"
                 data={weekData.skill}
                 labels={weekLabels}
                 isLoading={isLoading}
+                color={theme.palette.primary.dark}
               />
             </Grid>
             <Grid item xs={12} md={6}>
               <LineChartCard
-                icon={<Insights fontSize="inherit" />}
+                icon={<SportsEsports fontSize="inherit" />}
                 title="Kills"
                 data={weekData.kills}
                 labels={weekLabels}
                 isLoading={isLoading}
+                color={theme.palette.success.dark}
               />
             </Grid>
             <Grid item xs={12} md={6}>

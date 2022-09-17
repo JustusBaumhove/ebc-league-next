@@ -19,6 +19,7 @@ type Props = {
   labels: string[];
   icon: React.ReactElement<SvgIconProps>;
   isLoading: boolean;
+  color: string;
 };
 
 const chartOptions = {
@@ -60,7 +61,14 @@ const ChartContainer = styled("div")(() => ({
   marginBottom: -5,
 }));
 
-const LineChartCard = ({ title, labels, data, icon, isLoading }: Props) => {
+const LineChartCard = ({
+  title,
+  labels,
+  data,
+  icon,
+  isLoading,
+  color,
+}: Props) => {
   const theme = useTheme();
 
   return (
@@ -84,7 +92,7 @@ const LineChartCard = ({ title, labels, data, icon, isLoading }: Props) => {
               sx={{
                 aspectRatio: "1 / 1",
                 padding: 0.5,
-                backgroundColor: "custom.pro",
+                backgroundColor: `${color}`,
               }}
             >
               <Typography
@@ -122,11 +130,11 @@ const LineChartCard = ({ title, labels, data, icon, isLoading }: Props) => {
                 {
                   fill: true,
                   data: data,
-                  borderColor: theme.palette.error.dark,
+                  borderColor: color,
                   backgroundColor: (context: ScriptableContext<"line">) => {
                     const ctx = context.chart.ctx;
                     const gradient = ctx.createLinearGradient(0, 0, 0, 200);
-                    gradient.addColorStop(0, theme.palette.custom.pro);
+                    gradient.addColorStop(0, color);
                     gradient.addColorStop(1, theme.palette.background.default);
                     return gradient;
                   },
