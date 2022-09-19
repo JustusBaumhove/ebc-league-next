@@ -120,8 +120,8 @@ const WeaponstatsTableCard = ({ id }: { id: number }) => {
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>{convertWeaponName(row["name"])}</TableCell>
                     <TableCell align="right">
-                      {((row["kills"] / row["deaths"]) * 100).toFixed()}%
-                      {" " && trendIcon(row["kills"] / row["deaths"], 1)}
+                      {((row["kills"] / row["deaths"]) * 100).toFixed()}%{" "}
+                      {trendIcon(row["kills"] / row["deaths"], 1)}
                     </TableCell>
                     <TableCell align="right">{row["kills"]}</TableCell>
                     <TableCell align="right">{row["deaths"]}</TableCell>
