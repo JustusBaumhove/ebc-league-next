@@ -23,10 +23,10 @@ JSON response with rows of players that are in a certain league.
   GET /api/league/[name]/[id]
 ```
 
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `name` | `string` | **Required**. league name |
-| `id` | `integer` | **Required**. offset page id |
+| Parameter | Type      | Description                  |
+|:----------|:----------|:-----------------------------|
+| `name`    | `string`  | **Required**. league name    |
+| `id`      | `integer` | **Required**. offset page id |
 
 #### Get averages
 JSON with average stats and the total number of players in a specific league.

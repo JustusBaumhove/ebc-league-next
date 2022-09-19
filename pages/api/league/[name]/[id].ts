@@ -39,13 +39,13 @@ export default async function handler(
 
   const data = await db.execute(
     `SELECT c.id, c.name, x.skill, x.ratio, x.kills, x.deaths, p.prestige
-                                FROM clients AS c
-                                JOIN xlr_playerstats AS x ON x.client_id = c.id
-                                JOIN player_core AS p ON p.guid = c.guid
-                                WHERE x.skill > ?
-                                AND x.skill <= ?
-                                ORDER BY x.skill DESC
-                                LIMIT ?, ${itemCount};`,
+         FROM clients AS c
+                  JOIN xlr_playerstats AS x ON x.client_id = c.id
+                  JOIN player_core AS p ON p.guid = c.guid
+         WHERE x.skill > ?
+           AND x.skill <= ?
+         ORDER BY x.skill DESC
+         LIMIT ?, ${itemCount};`,
     [leagueBounds[league]["lower"], leagueBounds[league]["upper"], offset]
   );
 
