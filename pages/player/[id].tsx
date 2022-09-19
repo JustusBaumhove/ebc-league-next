@@ -108,7 +108,7 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
         <Box sx={{ flexGrow: 1, p: 2 }} alignItems="center">
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Card>
+              <Card sx={{ padding: 1 }}>
                 <Typography variant="h2" textAlign="center" fontWeight="bold">
                   {overviewData?.name ||
                     (isLoading ? (
