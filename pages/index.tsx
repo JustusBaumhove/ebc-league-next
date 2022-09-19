@@ -73,7 +73,7 @@ const Home: NextPage = () => {
     fetch("/api/league/server/info")
       .then((res) => res.json())
       .then((data) => {
-        let newData = { ...serverInfo };
+        let newData = { ...serverInfoData };
         for (const key in data) {
           newData[key].content = data[key];
         }

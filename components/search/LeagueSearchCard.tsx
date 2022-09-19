@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Button,
   Card,
@@ -27,7 +27,7 @@ type SearchRow = {
 const LeagueSearchCard = ({ name }: { name: string }) => {
   const [data, setData] = useState<SearchRow[]>([]);
   const [page, setPage] = useState(0);
-  const [nameS, setNameS] = useState("");
+  const prevName = useRef(name);
   const [loading, setLoading] = useState(true);
 
   const incrementPage = () => {
@@ -39,10 +39,12 @@ const LeagueSearchCard = ({ name }: { name: string }) => {
 
   useEffect(() => {
     setLoading(true);
-    if (name !== nameS) {
-      setNameS(name);
+
+    if (name !== prevName.current) {
       setPage(0);
+      prevName.current = name;
     }
+
     fetch(`/api/league/search/${encodeURIComponent(name)}/${page}`, {
       method: "GET",
       headers: {
