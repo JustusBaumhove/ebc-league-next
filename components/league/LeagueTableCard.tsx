@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Button,
   Card,
@@ -38,7 +38,7 @@ const ProLeagueCard = ({
   maxPlayers: number;
 }) => {
   const [data, setData] = useState<LeagueRows>([]);
-  const [leagueS, setLeagueS] = useState("");
+  const previousLeague = useRef(league);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(true);
   const itemCount = 25;
@@ -52,9 +52,9 @@ const ProLeagueCard = ({
 
   useEffect(() => {
     setLoading(true);
-    if (league !== leagueS) {
-      setLeagueS(league);
+    if (league !== previousLeague.current) {
       setPage(0);
+      previousLeague.current = league;
     }
     fetch(`/api/league/${league}/${page}`, {
       method: "GET",
