@@ -11,13 +11,24 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { MultilineChart } from "@mui/icons-material";
+import {
+  MultilineChart,
+  TrendingDown,
+  TrendingFlat,
+  TrendingUp,
+} from "@mui/icons-material";
 import React, { useEffect } from "react";
 
 const convertWeaponName = (name: string) => {
   const split = name.split("_");
   return split[0].charAt(0).toUpperCase() + split[0].slice(1);
 };
+
+const trendIcon = (value: number, threshold: number) =>
+  (value > threshold && <TrendingUp fontSize="inherit" color="success" />) ||
+  (value < threshold && <TrendingDown fontSize="inherit" color="error" />) || (
+    <TrendingFlat fontSize="inherit" />
+  );
 
 const WeaponstatsTableCard = ({ id }: { id: number }) => {
   const [data, setData] = React.useState<any>([]);
@@ -98,6 +109,7 @@ const WeaponstatsTableCard = ({ id }: { id: number }) => {
                 <TableRow>
                   <TableCell>#</TableCell>
                   <TableCell>Name</TableCell>
+                  <TableCell align="right">Gun efficacy</TableCell>
                   <TableCell align="right">Kills</TableCell>
                   <TableCell align="right">Deaths</TableCell>
                 </TableRow>
@@ -107,6 +119,10 @@ const WeaponstatsTableCard = ({ id }: { id: number }) => {
                   <TableRow key={index}>
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>{convertWeaponName(row["name"])}</TableCell>
+                    <TableCell align="right">
+                      {((row["kills"] / row["deaths"]) * 100).toFixed()}%{" "}
+                      {trendIcon(row["kills"] / row["deaths"], 1)}
+                    </TableCell>
                     <TableCell align="right">{row["kills"]}</TableCell>
                     <TableCell align="right">{row["deaths"]}</TableCell>
                   </TableRow>
