@@ -105,7 +105,7 @@ const LeagueSearchCard = ({ name }: { name: string }) => {
           {loading && data.length > 0 && (
             <Grid item>
               <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-                <Image src={Wedges} alt="Wedges" width={20} height={20} />
+                <Image src={Wedges} alt="Wedges" width={30} height={30} />
               </Box>
             </Grid>
           )}
@@ -115,7 +115,7 @@ const LeagueSearchCard = ({ name }: { name: string }) => {
         {data.length == 0 ? (
           loading ? (
             <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-              <Image src={Wedges} alt="Wedges" width={200} height={200} />
+              <Image src={Wedges} alt="Wedges" width={100} height={100} />
             </Box>
           ) : (
             <Typography component="div" variant="h6">
