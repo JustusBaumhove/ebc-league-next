@@ -1,7 +1,6 @@
 import {
   Box,
   Card,
-  CircularProgress,
   Grid,
   SvgIconProps,
   Typography,
@@ -12,6 +11,8 @@ import { Line } from "react-chartjs-2";
 import { ScriptableContext } from "chart.js";
 import "chart.js/auto";
 import { styled } from "@mui/system";
+import Image from "next/image";
+import Wedges from "/public/wedges.svg";
 
 type Props = {
   title: string;
@@ -153,7 +154,7 @@ const LineChartCard = ({
             padding: 2,
           }}
         >
-          <CircularProgress color="error" />
+          <Image src={Wedges} alt="Is loading..." width={100} height={100} />
         </Box>
       ) : (
         <Box

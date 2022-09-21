@@ -18,6 +18,8 @@ import {
   TrendingUp,
 } from "@mui/icons-material";
 import React, { useEffect } from "react";
+import Image from "next/image";
+import Wedges from "/public/wedges.svg";
 
 const convertWeaponName = (name: string) => {
   const split = name.split("_");
@@ -32,8 +34,10 @@ const trendIcon = (value: number, threshold: number) =>
 
 const WeaponstatsTableCard = ({ id }: { id: number }) => {
   const [data, setData] = React.useState<any>([]);
+  const [loading, setLoading] = React.useState(true);
 
   useEffect(() => {
+    setLoading(true);
     fetch(`/api/league/player/${id}/weaponstats`, {
       method: "GET",
       headers: {
@@ -41,7 +45,10 @@ const WeaponstatsTableCard = ({ id }: { id: number }) => {
       },
     })
       .then((res) => res.json())
-      .then((data) => data.length > 0 && setData(data));
+      .then((data) => {
+        if (data.length > 0) setData(data);
+        setLoading(false);
+      });
   }, [id]);
 
   return (
@@ -97,9 +104,13 @@ const WeaponstatsTableCard = ({ id }: { id: number }) => {
             padding: 2,
           }}
         >
-          <Typography variant="body2" color="textSecondary">
-            No data available
-          </Typography>
+          {loading ? (
+            <Image src={Wedges} alt="Loading..." width={100} height={100} />
+          ) : (
+            <Typography variant="body2" color="textSecondary">
+              No data available
+            </Typography>
+          )}
         </Box>
       ) : (
         <CardContent>

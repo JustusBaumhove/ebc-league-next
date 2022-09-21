@@ -19,7 +19,9 @@ import {
   TrendingFlat,
   TrendingUp,
 } from "@mui/icons-material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import Wedges from "/public/wedges.svg";
 
 const trendIcon = (value: number, threshold: number) =>
   (value > threshold && <TrendingUp fontSize="inherit" color="success" />) ||
@@ -28,9 +30,11 @@ const trendIcon = (value: number, threshold: number) =>
   );
 
 const OpponentsTableCard = ({ id }: { id: number }) => {
-  const [data, setData] = React.useState<any>([]);
+  const [data, setData] = useState<any>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     fetch(`/api/league/player/${id}/opponents`, {
       method: "GET",
       headers: {
@@ -38,7 +42,10 @@ const OpponentsTableCard = ({ id }: { id: number }) => {
       },
     })
       .then((res) => res.json())
-      .then((data) => data.length > 0 && setData(data));
+      .then((data) => {
+        data.length > 0 && setData(data);
+        setLoading(false);
+      });
   }, [id]);
 
   return (
@@ -94,9 +101,13 @@ const OpponentsTableCard = ({ id }: { id: number }) => {
             padding: 2,
           }}
         >
-          <Typography variant="body2" color="textSecondary">
-            No data available
-          </Typography>
+          {loading ? (
+            <Image src={Wedges} alt="Loading..." width={100} height={100} />
+          ) : (
+            <Typography variant="body2" color="textSecondary">
+              No data available
+            </Typography>
+          )}
         </Box>
       ) : (
         <CardContent>
