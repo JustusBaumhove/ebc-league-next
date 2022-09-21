@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import {
   Button,
   Card,
   CardActions,
   CardContent,
-  CircularProgress,
   Grid,
   TableContainer,
   Typography,
@@ -12,6 +12,7 @@ import {
 import { Search } from "@mui/icons-material";
 import { Box } from "@mui/system";
 import SearchTable from "./SearchTable";
+import Wedges from "/public/wedges.svg";
 
 type SearchRow = {
   id: number;
@@ -42,6 +43,7 @@ const LeagueSearchCard = ({ name }: { name: string }) => {
 
     if (name !== prevName.current) {
       setPage(0);
+      setData([]);
       prevName.current = name;
     }
 
@@ -57,8 +59,6 @@ const LeagueSearchCard = ({ name }: { name: string }) => {
         setLoading(false);
       });
   }, [page, name]);
-
-  const color = "error";
 
   return (
     <Card sx={{ padding: 1 }} aria-label="LeagueSearchCard">
@@ -102,10 +102,10 @@ const LeagueSearchCard = ({ name }: { name: string }) => {
               {name}
             </Typography>
           </Grid>
-          {loading && (
+          {loading && data.length > 0 && (
             <Grid item>
               <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-                <CircularProgress color={color} size={20} />
+                <Image src={Wedges} alt="Wedges" width={20} height={20} />
               </Box>
             </Grid>
           )}
@@ -113,7 +113,11 @@ const LeagueSearchCard = ({ name }: { name: string }) => {
       </Grid>
       <CardContent>
         {data.length == 0 ? (
-          !loading && (
+          loading ? (
+            <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+              <Image src={Wedges} alt="Wedges" width={200} height={200} />
+            </Box>
+          ) : (
             <Typography component="div" variant="h6">
               No results found
             </Typography>
