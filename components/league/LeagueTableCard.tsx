@@ -4,7 +4,6 @@ import {
   Card,
   CardActions,
   CardContent,
-  CircularProgress,
   Grid,
   Link,
   Table,
@@ -17,6 +16,8 @@ import {
 } from "@mui/material";
 import { Star } from "@mui/icons-material";
 import { Box } from "@mui/system";
+import Image from "next/image";
+import Wedges from "/public/wedges.svg";
 
 type LeagueRow = {
   id: number;
@@ -54,6 +55,7 @@ const ProLeagueCard = ({
     setLoading(true);
     if (league !== previousLeague.current) {
       setPage(0);
+      setData([]);
       previousLeague.current = league;
     }
     fetch(`/api/league/${league}/${page}`, {
@@ -117,10 +119,10 @@ const ProLeagueCard = ({
                 " League"}
             </Typography>
           </Grid>
-          {loading && (
+          {loading && data.length > 0 && (
             <Grid item>
               <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-                <CircularProgress color={`error`} size={20} />
+                <Image src={Wedges} alt="Wedges" width={30} height={30} />
               </Box>
             </Grid>
           )}
@@ -128,7 +130,11 @@ const ProLeagueCard = ({
       </Grid>
       <CardContent>
         {data.length === 0 ? (
-          !loading && (
+          loading ? (
+            <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+              <Image src={Wedges} alt="Wedges" width={100} height={100} />
+            </Box>
+          ) : (
             <Typography component="div" variant="body2">
               No data available.
             </Typography>
