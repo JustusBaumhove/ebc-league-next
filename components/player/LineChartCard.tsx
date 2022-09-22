@@ -7,12 +7,33 @@ import {
   useTheme,
 } from "@mui/material";
 import React from "react";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler,
+} from "chart.js";
 import { Line } from "react-chartjs-2";
 import { ScriptableContext } from "chart.js";
-import "chart.js/auto";
 import { styled } from "@mui/system";
 import Image from "next/image";
 import Wedges from "/public/wedges.svg";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+);
 
 type Props = {
   title: string;
@@ -29,6 +50,8 @@ const chartOptions = {
   scaleShowLabels: false,
   layout: {
     padding: {
+      top: 0,
+      bottom: 0,
       left: 0,
       right: 0,
     },
@@ -45,6 +68,9 @@ const chartOptions = {
     legend: {
       display: false,
     },
+    filler: {
+      propagate: false,
+    },
   },
   scales: {
     x: {
@@ -60,6 +86,8 @@ const ChartContainer = styled("div")(() => ({
   marginLeft: -5,
   marginRight: -5,
   marginBottom: -5,
+  minWidth: 50,
+  minHeight: 50,
 }));
 
 const LineChartCard = ({
@@ -129,7 +157,6 @@ const LineChartCard = ({
               labels: labels,
               datasets: [
                 {
-                  fill: true,
                   data: data,
                   borderColor: color,
                   backgroundColor: (context: ScriptableContext<"line">) => {
@@ -139,6 +166,7 @@ const LineChartCard = ({
                     gradient.addColorStop(1, theme.palette.background.default);
                     return gradient;
                   },
+                  fill: "start",
                 },
               ],
             }}
