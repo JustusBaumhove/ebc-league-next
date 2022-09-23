@@ -93,8 +93,8 @@ const SearchTable = ({ rows, page }: { rows: SearchRow[]; page: number }) => (
           <TableRow key={index}>
             <TableCell>{page * 25 + index + 1}</TableCell>
             <TableCell>
-              <Link href={`/player/${row["id"]}`} underline="hover">
-                {row["name"]}
+              <Link href={`/player/${row.id}`} underline="hover">
+                {row.name}
               </Link>
             </TableCell>
             <TableCell align="right">
@@ -112,29 +112,29 @@ const SearchTable = ({ rows, page }: { rows: SearchRow[]; page: number }) => (
                   {league}
                 </MUILink>
                 <Typography marginLeft={1} fontSize="inherit">
-                  #{row["lrank"]}
+                  #{row.lrank}
                 </Typography>
               </Stack>
             </TableCell>
-            <TableCell align="right">{row["skill"]}</TableCell>
-            <TableCell align="right">{row["ratio"].toFixed(2)}</TableCell>
+            <TableCell align="right">{row.skill}</TableCell>
+            <TableCell align="right">{row.ratio.toFixed(2)}</TableCell>
             <TableCell
               align="right"
               sx={{ display: { xs: "none", lg: "table-cell" } }}
             >
-              {row["kills"]}
+              {row.kills}
             </TableCell>
             <TableCell
               align="right"
               sx={{ display: { xs: "none", lg: "table-cell" } }}
             >
-              {row["deaths"]}
+              {row.deaths}
             </TableCell>
             <TableCell
               align="right"
               sx={{ display: { xs: "none", lg: "table-cell" } }}
             >
-              {row["prestige"]}
+              {row.prestige}
             </TableCell>
           </TableRow>
         );

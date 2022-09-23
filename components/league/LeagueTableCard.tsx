@@ -169,35 +169,33 @@ const ProLeagueCard = ({
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data.map((row: any, index: number) => (
+                {data.map((row, index: number) => (
                   <TableRow key={index}>
                     <TableCell>{page * itemCount + index + 1}</TableCell>
                     <TableCell>
-                      <Link href={`/player/${row["id"]}`} underline="hover">
-                        {row["name"]}
+                      <Link href={`/player/${row.id}`} underline="hover">
+                        {row.name}
                       </Link>
                     </TableCell>
-                    <TableCell align="right">{row["skill"]}</TableCell>
-                    <TableCell align="right">
-                      {row["ratio"].toFixed(2)}
+                    <TableCell align="right">{row.skill}</TableCell>
+                    <TableCell align="right">{row.ratio.toFixed(2)}</TableCell>
+                    <TableCell
+                      align="right"
+                      sx={{ display: { xs: "none", lg: "table-cell" } }}
+                    >
+                      {row.kills}
                     </TableCell>
                     <TableCell
                       align="right"
                       sx={{ display: { xs: "none", lg: "table-cell" } }}
                     >
-                      {row["kills"]}
+                      {row.deaths}
                     </TableCell>
                     <TableCell
                       align="right"
                       sx={{ display: { xs: "none", lg: "table-cell" } }}
                     >
-                      {row["deaths"]}
-                    </TableCell>
-                    <TableCell
-                      align="right"
-                      sx={{ display: { xs: "none", lg: "table-cell" } }}
-                    >
-                      {row["prestige"]}
+                      {row.prestige}
                     </TableCell>
                   </TableRow>
                 ))}
