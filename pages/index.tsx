@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import Navbar from "../components/navbar/Navbar";
 import SingleInfoCard from "../components/cards/SingleInfoCard";
-import { Box, Card, Grid, Typography } from "@mui/material";
+import { Box, Card, Grid, Skeleton, Typography } from "@mui/material";
 import PublicIcon from "@mui/icons-material/Public";
 import {
   EmojiEvents,

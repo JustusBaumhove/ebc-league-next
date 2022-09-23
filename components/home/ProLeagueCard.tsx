@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
-  Box,
   Card,
   CardContent,
   Grid,
   IconButton,
   Link,
+  Skeleton,
   Table,
   TableBody,
   TableCell,
@@ -31,6 +31,22 @@ type LeagueRow = {
 
 type LeagueRows = Array<LeagueRow>;
 
+const SkeletonRows = () => {
+  return (
+    <>
+      {Array.from(Array(5)).map((_, i) => (
+        <TableRow key={i}>
+          {Array.from(Array(7)).map((_, j) => (
+            <TableCell key={j}>
+              <Skeleton variant="text" />
+            </TableCell>
+          ))}
+        </TableRow>
+      ))}
+    </>
+  );
+};
+
 const ProLeagueCard = () => {
   const router = useRouter();
   const [data, setData] = useState<LeagueRows>([]);
@@ -42,6 +58,7 @@ const ProLeagueCard = () => {
 
   useEffect(() => {
     setLoading(true);
+    setData([]);
     fetch(`/api/league/pro/0`, {
       method: "GET",
       headers: {
@@ -107,50 +124,47 @@ const ProLeagueCard = () => {
               <ArrowForwardOutlined fontSize="inherit" />
             </IconButton>
           </Grid>
+          {loading && (
+            <Grid item>
+              <Image src={Wedges} alt="Wedges" width={30} height={30} />
+            </Grid>
+          )}
         </Grid>
       </Grid>
       <CardContent>
-        {data.length === 0 ? (
-          loading ? (
-            <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-              <Image src={Wedges} alt="Wedges" width={100} height={100} />
-            </Box>
-          ) : (
-            <Typography component="div" variant="body2">
-              No data available.
-            </Typography>
-          )
-        ) : (
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Rank</TableCell>
-                  <TableCell>Player</TableCell>
-                  <TableCell align="right">Skill</TableCell>
-                  <TableCell align="right">Ratio</TableCell>
-                  <TableCell
-                    align="right"
-                    sx={{ display: { xs: "none", lg: "table-cell" } }}
-                  >
-                    Kills
-                  </TableCell>
-                  <TableCell
-                    align="right"
-                    sx={{ display: { xs: "none", lg: "table-cell" } }}
-                  >
-                    Deaths
-                  </TableCell>
-                  <TableCell
-                    align="right"
-                    sx={{ display: { xs: "none", lg: "table-cell" } }}
-                  >
-                    Prestige
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {data.map((row, index: number) => (
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Rank</TableCell>
+                <TableCell>Player</TableCell>
+                <TableCell align="right">Skill</TableCell>
+                <TableCell align="right">Ratio</TableCell>
+                <TableCell
+                  align="right"
+                  sx={{ display: { xs: "none", lg: "table-cell" } }}
+                >
+                  Kills
+                </TableCell>
+                <TableCell
+                  align="right"
+                  sx={{ display: { xs: "none", lg: "table-cell" } }}
+                >
+                  Deaths
+                </TableCell>
+                <TableCell
+                  align="right"
+                  sx={{ display: { xs: "none", lg: "table-cell" } }}
+                >
+                  Prestige
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data.length === 0 ? (
+                <SkeletonRows />
+              ) : (
+                data.map((row, index: number) => (
                   <TableRow key={index}>
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>
@@ -179,11 +193,11 @@ const ProLeagueCard = () => {
                       {row.prestige}
                     </TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        )}
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </CardContent>
     </Card>
   );
