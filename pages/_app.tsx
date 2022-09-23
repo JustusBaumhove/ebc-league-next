@@ -20,7 +20,7 @@ declare module "@mui/material/styles" {
   }
 }
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+function MyApp({ Component, pageProps: { ...pageProps } }: AppProps) {
   let theme = createTheme({
     palette: {
       mode: "dark",

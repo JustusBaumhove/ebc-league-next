@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
+  Box,
   Card,
   CardContent,
   Grid,
@@ -15,17 +16,20 @@ import {
 } from "@mui/material";
 import { ArrowForwardOutlined, Star } from "@mui/icons-material";
 import { useRouter } from "next/router";
+import Image from "next/image";
+import Wedges from "/public/wedges.svg";
 
 const ProLeagueCard = () => {
   const router = useRouter();
-  const [data, setData] = React.useState<any>([]);
-  const [loading, setLoading] = React.useState(true);
+  const [data, setData] = useState<any>([]);
+  const [loading, setLoading] = useState(true);
 
   const handleRedirect = () => {
     router.push(`/pro`).then(null);
   };
 
   useEffect(() => {
+    setLoading(true);
     fetch(`/api/league/pro/0`, {
       method: "GET",
       headers: {
@@ -95,7 +99,11 @@ const ProLeagueCard = () => {
       </Grid>
       <CardContent>
         {data.length === 0 ? (
-          !loading && (
+          loading ? (
+            <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+              <Image src={Wedges} alt="Wedges" width={100} height={100} />
+            </Box>
+          ) : (
             <Typography component="div" variant="body2">
               No data available.
             </Typography>

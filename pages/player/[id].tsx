@@ -1,14 +1,7 @@
 import { GetServerSideProps, NextPage } from "next";
 import Header from "../../components/common/Header";
 import Navbar from "../../components/navbar/Navbar";
-import {
-  Box,
-  Card,
-  CircularProgress,
-  Grid,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Box, Card, Grid, Typography, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SingleInfoCard from "../../components/cards/SingleInfoCard";
 import {
@@ -23,6 +16,8 @@ import {
 import LineChartCard from "../../components/player/LineChartCard";
 import WeaponstatsTableCard from "../../components/player/WeaponstatsTableCard";
 import OpponentsTableCard from "../../components/player/OpponentsTableCard";
+import Image from "next/image";
+import Wedges from "/public/wedges.svg";
 
 type Props = {
   id: number;
@@ -109,14 +104,17 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Card sx={{ padding: 1 }}>
-                <Typography variant="h2" textAlign="center" fontWeight="bold">
-                  {overviewData?.name ||
-                    (isLoading ? (
-                      <CircularProgress />
-                    ) : (
-                      <Typography variant="h2">Player has no stats</Typography>
-                    ))}
-                </Typography>
+                {overviewData ? (
+                  <Typography variant="h2" textAlign="center" fontWeight="bold">
+                    {overviewData.name}
+                  </Typography>
+                ) : isLoading ? (
+                  <Image src={Wedges} alt="Loading..." height={50} width={50} />
+                ) : (
+                  <Typography variant="h2" textAlign="center" fontWeight="bold">
+                    Player not found
+                  </Typography>
+                )}
               </Card>
             </Grid>
             <Grid item xs={12}>
