@@ -78,7 +78,9 @@ const LeaguePage: NextPage<{ league: string; color: string }> = ({
               <Grid item xs={12} md={6} lg={3}>
                 <SingleInfoCard
                   title={"Players"}
-                  content={averages.players.toString()}
+                  content={
+                    averages.players === 0 ? "..." : averages.players.toString()
+                  }
                   color={color}
                   icon={<Groups fontSize="inherit" />}
                 />
@@ -86,7 +88,9 @@ const LeaguePage: NextPage<{ league: string; color: string }> = ({
               <Grid item xs={12} md={6} lg={3}>
                 <SingleInfoCard
                   title={"Average ratio"}
-                  content={averages.ratio.toString()}
+                  content={
+                    averages.ratio === 0 ? "..." : averages.ratio.toString()
+                  }
                   color={color}
                   icon={<EmojiEvents fontSize="inherit" />}
                 />
@@ -94,7 +98,7 @@ const LeaguePage: NextPage<{ league: string; color: string }> = ({
               <Grid item xs={12} md={6} lg={3}>
                 <SingleInfoCard
                   title={"Average kills"}
-                  content={averages.kills}
+                  content={averages.kills === "0" ? "..." : averages.kills}
                   color={color}
                   icon={<SportsEsports fontSize="inherit" />}
                 />
@@ -102,7 +106,7 @@ const LeaguePage: NextPage<{ league: string; color: string }> = ({
               <Grid item xs={12} md={6} lg={3}>
                 <SingleInfoCard
                   title={"Average deaths"}
-                  content={averages.deaths}
+                  content={averages.deaths === "0" ? "..." : averages.deaths}
                   color={color}
                   icon={<Person fontSize="inherit" />}
                 />
