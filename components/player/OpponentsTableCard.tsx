@@ -23,6 +23,18 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Wedges from "/public/wedges.svg";
 
+type OpponentRow = {
+  opponent_client_id: number;
+  opponent_name: string;
+  opponent_skill: number;
+  kills: number;
+  deaths: number;
+  win_rate: string;
+  confrontations: number;
+};
+
+type OpponentRows = Array<OpponentRow>;
+
 const trendIcon = (value: number, threshold: number) =>
   (value > threshold && <TrendingUp fontSize="inherit" color="success" />) ||
   (value < threshold && <TrendingDown fontSize="inherit" color="error" />) || (
@@ -30,7 +42,7 @@ const trendIcon = (value: number, threshold: number) =>
   );
 
 const OpponentsTableCard = ({ id }: { id: number }) => {
-  const [data, setData] = useState<any>([]);
+  const [data, setData] = useState<OpponentRows>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -123,32 +135,32 @@ const OpponentsTableCard = ({ id }: { id: number }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data.map((row: any, index: number) => (
+                {data.map((row, index: number) => (
                   <TableRow key={index}>
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>
                       <Link
-                        href={`/player/${row["opponent_client_id"]}`}
+                        href={`/player/${row.opponent_client_id}`}
                         underline="hover"
                       >
-                        {row["opponent_name"]}
+                        {row.opponent_name}
                       </Link>
                     </TableCell>
                     <TableCell align="right">
                       <Typography component="div" variant="body2">
-                        {(row["win_rate"] * 100).toFixed(0)}%{" "}
-                        {trendIcon(row["win_rate"], 0.5)}
+                        {(parseFloat(row.win_rate) * 100).toFixed(0)}%{" "}
+                        {trendIcon(parseFloat(row.win_rate), 0.5)}
                       </Typography>
                     </TableCell>
                     <TableCell align="right">
                       <Stack>
-                        <Typography>{row["confrontations"]}</Typography>
+                        <Typography>{row.confrontations}</Typography>
                         <Typography variant="body2" color="textSecondary">
-                          Kills: {row["kills"]} Deaths: {row["deaths"]}
+                          Kills: {row.kills} Deaths: {row.deaths}
                         </Typography>
                       </Stack>
                     </TableCell>
-                    <TableCell align="right">{row["opponent_skill"]}</TableCell>
+                    <TableCell align="right">{row.opponent_skill}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

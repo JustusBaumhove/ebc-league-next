@@ -107,7 +107,7 @@ const LineChartCard = ({
         spacing={2}
         direction="row"
         justifyContent="flex-start"
-        sx={{ m: "-8px" }}
+        sx={{ marginLeft: "-8px", marginTop: "-8px" }}
       >
         <Grid
           container

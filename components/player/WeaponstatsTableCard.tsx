@@ -21,6 +21,15 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import Wedges from "/public/wedges.svg";
 
+type WeaponstatsRow = {
+  weapon_id: number;
+  name: string;
+  kills: number;
+  deaths: number;
+};
+
+type WeaponstatsRows = Array<WeaponstatsRow>;
+
 const convertWeaponName = (name: string) => {
   const split = name.split("_");
   return split[0].charAt(0).toUpperCase() + split[0].slice(1);
@@ -33,7 +42,7 @@ const trendIcon = (value: number, threshold: number) =>
   );
 
 const WeaponstatsTableCard = ({ id }: { id: number }) => {
-  const [data, setData] = React.useState<any>([]);
+  const [data, setData] = React.useState<WeaponstatsRows>([]);
   const [loading, setLoading] = React.useState(true);
 
   useEffect(() => {
@@ -126,16 +135,16 @@ const WeaponstatsTableCard = ({ id }: { id: number }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data.map((row: any, index: number) => (
+                {data.map((row, index: number) => (
                   <TableRow key={index}>
                     <TableCell>{index + 1}</TableCell>
-                    <TableCell>{convertWeaponName(row["name"])}</TableCell>
+                    <TableCell>{convertWeaponName(row.name)}</TableCell>
                     <TableCell align="right">
-                      {((row["kills"] / row["deaths"]) * 100).toFixed()}%{" "}
-                      {trendIcon(row["kills"] / row["deaths"], 1)}
+                      {((row.kills / row.deaths) * 100).toFixed()}%{" "}
+                      {trendIcon(row.kills / row.deaths, 1)}
                     </TableCell>
-                    <TableCell align="right">{row["kills"]}</TableCell>
-                    <TableCell align="right">{row["deaths"]}</TableCell>
+                    <TableCell align="right">{row.kills}</TableCell>
+                    <TableCell align="right">{row.deaths}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

@@ -19,9 +19,21 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import Wedges from "/public/wedges.svg";
 
+type LeagueRow = {
+  id: number;
+  name: string;
+  skill: number;
+  ratio: number;
+  kills: number;
+  deaths: number;
+  prestige: number;
+};
+
+type LeagueRows = Array<LeagueRow>;
+
 const SmallLeagueCard = ({ league }: { league: string }) => {
   const router = useRouter();
-  const [data, setData] = useState<any>([]);
+  const [data, setData] = useState<LeagueRows>([]);
   const [loading, setLoading] = useState(true);
 
   const handleRedirect = () => {
@@ -123,18 +135,16 @@ const SmallLeagueCard = ({ league }: { league: string }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data.map((row: any, index: number) => (
+                {data.map((row, index: number) => (
                   <TableRow key={index}>
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>
-                      <Link href={`/player/${row["id"]}`} underline="hover">
-                        {row["name"]}
+                      <Link href={`/player/${row.id}`} underline="hover">
+                        {row.name}
                       </Link>
                     </TableCell>
-                    <TableCell align="right">{row["skill"]}</TableCell>
-                    <TableCell align="right">
-                      {row["ratio"].toFixed(2)}
-                    </TableCell>
+                    <TableCell align="right">{row.skill}</TableCell>
+                    <TableCell align="right">{row.ratio.toFixed(2)}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
