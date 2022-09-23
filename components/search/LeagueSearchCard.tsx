@@ -102,7 +102,7 @@ const LeagueSearchCard = ({ name }: { name: string }) => {
               {name}
             </Typography>
           </Grid>
-          {loading && data.length > 0 && (
+          {loading && (
             <Grid item>
               <Box sx={{ display: "flex", justifyContent: "space-around" }}>
                 <Image src={Wedges} alt="Wedges" width={30} height={30} />
@@ -112,21 +112,9 @@ const LeagueSearchCard = ({ name }: { name: string }) => {
         </Grid>
       </Grid>
       <CardContent>
-        {data.length == 0 ? (
-          loading ? (
-            <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-              <Image src={Wedges} alt="Wedges" width={100} height={100} />
-            </Box>
-          ) : (
-            <Typography component="div" variant="h6">
-              No results found
-            </Typography>
-          )
-        ) : (
-          <TableContainer>
-            <SearchTable rows={data} page={page} />
-          </TableContainer>
-        )}
+        <TableContainer>
+          <SearchTable rows={data} page={page} />
+        </TableContainer>
       </CardContent>
       <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
         <Button
