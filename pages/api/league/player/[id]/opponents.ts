@@ -15,7 +15,7 @@ export default async function handler(
             xt.skill             as 'opponent_skill',
             xo.kills,
             xo.retals            as 'deaths',
-            xo.kills / xo.retals as 'win_rate',
+            xo.kills / (xo.kills + xo.retals) as 'win_rate',
             xo.kills + xo.retals as 'confrontations'
      FROM xlr_opponents AS xo
             JOIN xlr_playerstats AS xt ON xt.id = xo.killer_id
