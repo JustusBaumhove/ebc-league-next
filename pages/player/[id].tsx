@@ -74,7 +74,8 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
 
     fetch(`/api/league/player/${id}/overview`)
       .then((res) => res.json())
-      .then((data) => data.length > 0 && setOverviewData(data[0]));
+      .then((data) => data.length > 0 && setOverviewData(data[0]))
+      .catch((err) => console.error(err));
 
     fetch(`/api/league/player/${id}/weeklystats`)
       .then((res) => res.json())
@@ -88,7 +89,8 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
         });
 
         setIsLoading(false);
-      });
+      })
+      .catch((err) => console.error(err));
   }, [id]);
 
   return (
