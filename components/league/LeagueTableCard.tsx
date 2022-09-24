@@ -160,7 +160,7 @@ const LeagueCard = ({
             </TableHead>
             <TableBody>
               {data.length === 0 ? (
-                <SkeletonTableRows rows={10} columns={7} />
+                <SkeletonTableRows rows={10} columns={7} hideOnSmall={3} />
               ) : (
                 data.map((row, index: number) => (
                   <TableRow key={index}>

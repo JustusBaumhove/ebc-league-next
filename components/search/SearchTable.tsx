@@ -88,7 +88,7 @@ const SearchTable = ({ rows, page }: { rows: SearchRow[]; page: number }) => (
     </TableHead>
     <TableBody>
       {rows.length === 0 ? (
-        <SkeletonTableRows rows={10} columns={8} />
+        <SkeletonTableRows rows={10} columns={8} hideOnSmall={3} />
       ) : (
         rows.map((row: SearchRow, index: number) => {
           const league = determineLeague(row.skill);

@@ -4,7 +4,6 @@ import {
   Grid,
   IconButton,
   Link,
-  Skeleton,
   Table,
   TableBody,
   TableCell,
@@ -18,6 +17,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Wedges from "/public/wedges.svg";
+import SkeletonTableRows from "../placeholders/SkeletonTableRows";
 
 type LeagueRow = {
   id: number;
@@ -30,22 +30,6 @@ type LeagueRow = {
 };
 
 type LeagueRows = Array<LeagueRow>;
-
-const SkeletonRows = () => {
-  return (
-    <>
-      {Array.from(Array(5)).map((_, i) => (
-        <TableRow key={i}>
-          {Array.from(Array(4)).map((_, j) => (
-            <TableCell key={j}>
-              <Skeleton variant="text" />
-            </TableCell>
-          ))}
-        </TableRow>
-      ))}
-    </>
-  );
-};
 
 const SmallLeagueCard = ({ league }: { league: string }) => {
   const router = useRouter();
@@ -148,7 +132,7 @@ const SmallLeagueCard = ({ league }: { league: string }) => {
             </TableHead>
             <TableBody>
               {data.length === 0 ? (
-                <SkeletonRows />
+                <SkeletonTableRows rows={5} columns={4} hideOnSmall={0} />
               ) : (
                 data.map((row, index: number) => (
                   <TableRow key={index}>

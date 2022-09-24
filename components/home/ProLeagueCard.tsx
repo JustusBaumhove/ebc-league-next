@@ -5,7 +5,6 @@ import {
   Grid,
   IconButton,
   Link,
-  Skeleton,
   Table,
   TableBody,
   TableCell,
@@ -18,6 +17,7 @@ import { ArrowForwardOutlined, Star } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Wedges from "/public/wedges.svg";
+import SkeletonTableRows from "../placeholders/SkeletonTableRows";
 
 type LeagueRow = {
   id: number;
@@ -30,22 +30,6 @@ type LeagueRow = {
 };
 
 type LeagueRows = Array<LeagueRow>;
-
-const SkeletonRows = () => {
-  return (
-    <>
-      {Array.from(Array(5)).map((_, i) => (
-        <TableRow key={i}>
-          {Array.from(Array(7)).map((_, j) => (
-            <TableCell key={j}>
-              <Skeleton variant="text" />
-            </TableCell>
-          ))}
-        </TableRow>
-      ))}
-    </>
-  );
-};
 
 const ProLeagueCard = () => {
   const router = useRouter();
@@ -162,7 +146,7 @@ const ProLeagueCard = () => {
             </TableHead>
             <TableBody>
               {data.length === 0 ? (
-                <SkeletonRows />
+                <SkeletonTableRows rows={5} columns={7} hideOnSmall={3} />
               ) : (
                 data.map((row, index: number) => (
                   <TableRow key={index}>

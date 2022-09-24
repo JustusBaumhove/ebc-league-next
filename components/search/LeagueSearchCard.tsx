@@ -57,7 +57,8 @@ const LeagueSearchCard = ({ name }: { name: string }) => {
       .then((data) => {
         setData(data);
         setLoading(false);
-      });
+      })
+      .catch(() => setLoading(false));
   }, [page, name]);
 
   return (
@@ -137,5 +138,4 @@ const LeagueSearchCard = ({ name }: { name: string }) => {
     </Card>
   );
 };
-
 export default LeagueSearchCard;

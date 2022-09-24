@@ -10,7 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import { Button } from "@mui/material";
+import { Button, ClickAwayListener, Tooltip } from "@mui/material";
 import Logo from "../../public/ebc_logo_small.gif";
 import Image from "next/image";
 import Link from "next/link";
@@ -62,7 +62,7 @@ const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
-
+  const [tooltipOpen, setTooltipOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -73,10 +73,23 @@ const Navbar = () => {
     setAnchorElNav(null);
   };
 
+  const handleTooltipOpen = () => {
+    setTooltipOpen(true);
+  };
+  const handleTooltipClose = () => {
+    setTooltipOpen(false);
+  };
+
   const handleSearch = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
       event.preventDefault();
-      router.push(`/search/${encodeURIComponent(searchText)}`).then(null);
+
+      if (searchText.length > 1) {
+        handleTooltipClose();
+        router.push(`/search/${encodeURIComponent(searchText)}`).then(null);
+      } else {
+        handleTooltipOpen();
+      }
     }
   };
 
@@ -169,17 +182,30 @@ const Navbar = () => {
             ))}
           </Box>
           <Box sx={{ flexGrow: 1 }} />
-          <Search aria-label="Search">
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search name…"
-              inputProps={{ "aria-label": "search" }}
-              onChange={(event) => setSearchText(event.target.value)}
-              onKeyDown={handleSearch}
-            />
-          </Search>
+          <ClickAwayListener onClickAway={handleTooltipClose}>
+            <Tooltip
+              title="Search must be at least 2 characters"
+              open={tooltipOpen}
+              onClose={handleTooltipClose}
+              onOpen={handleTooltipOpen}
+              disableFocusListener
+              disableHoverListener
+              disableTouchListener
+              arrow
+            >
+              <Search aria-label="Search">
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Search name…"
+                  inputProps={{ "aria-label": "search" }}
+                  onChange={(event) => setSearchText(event.target.value)}
+                  onKeyDown={handleSearch}
+                />
+              </Search>
+            </Tooltip>
+          </ClickAwayListener>
         </Toolbar>
       </AppBar>
     </Box>
