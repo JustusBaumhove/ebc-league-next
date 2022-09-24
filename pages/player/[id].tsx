@@ -75,7 +75,7 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
     fetch(`/api/league/player/${id}/overview`)
       .then((res) => res.json())
       .then((data) => data.length > 0 && setOverviewData(data[0]))
-      .catch((err) => console.error(err));
+      .catch(() => console.error("Oops, something went wrong"));
 
     fetch(`/api/league/player/${id}/weeklystats`)
       .then((res) => res.json())
@@ -90,7 +90,7 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
 
         setIsLoading(false);
       })
-      .catch((err) => console.error(err));
+      .catch(() => console.error("Oops, something went wrong"));
   }, [id]);
 
   return (
