@@ -109,6 +109,7 @@ const SmallLeagueCard = ({ league }: { league: string }) => {
           justifyContent="center"
           alignItems="center"
           xs="auto"
+          spacing={2}
         >
           <Grid item>
             <Typography component="div" variant="h6">

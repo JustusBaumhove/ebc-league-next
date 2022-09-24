@@ -103,7 +103,7 @@ const ProLeagueCard = () => {
         <Grid
           container
           item
-          spacing={0}
+          spacing={2}
           direction="row"
           justifyContent="flex-start"
           alignItems="center"

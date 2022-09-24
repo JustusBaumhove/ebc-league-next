@@ -110,7 +110,7 @@ const LeagueCard = ({
           justifyContent="flex-start"
           alignItems="center"
           xs="auto"
-          spacing={4}
+          spacing={2}
           aria-label="LeagueName"
         >
           <Grid item>

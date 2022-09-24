@@ -2,6 +2,7 @@ import {
   Box,
   Card,
   Grid,
+  Skeleton,
   SvgIconProps,
   Typography,
   useTheme,
@@ -21,8 +22,6 @@ import {
 import { Line } from "react-chartjs-2";
 import { ScriptableContext } from "chart.js";
 import { styled } from "@mui/system";
-import Image from "next/image";
-import Wedges from "/public/wedges.svg";
 
 ChartJS.register(
   CategoryScale,
@@ -173,16 +172,8 @@ const LineChartCard = ({
           />
         </ChartContainer>
       ) : isLoading ? (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100%",
-            padding: 2,
-          }}
-        >
-          <Image src={Wedges} alt="Is loading..." width={100} height={100} />
+        <Box paddingTop={1}>
+          <Skeleton variant="rectangular" height={150} />
         </Box>
       ) : (
         <Box
