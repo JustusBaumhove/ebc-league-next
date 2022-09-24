@@ -107,14 +107,15 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
                     {overviewData.name}
                   </Typography>
                 ) : (
-                  <Typography
-                    variant="h2"
-                    textAlign="center"
-                    fontWeight="bold"
-                    sx={{ m: "auto" }}
-                  >
-                    <Skeleton variant="text" width={"30rem"} />
-                  </Typography>
+                  <Box sx={{ display: "flex", justifyContent: "center" }}>
+                    <Typography
+                      variant="h2"
+                      textAlign="center"
+                      fontWeight="bold"
+                    >
+                      <Skeleton variant="text" width={"30rem"} />
+                    </Typography>
+                  </Box>
                 )}
               </Card>
             </Grid>
