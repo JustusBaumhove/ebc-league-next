@@ -57,7 +57,8 @@ const WeaponstatsTableCard = ({ id }: { id: number }) => {
       .then((data) => {
         if (data.length > 0) setData(data);
         setLoading(false);
-      });
+      })
+      .catch(() => setLoading(false));
   }, [id]);
 
   return (

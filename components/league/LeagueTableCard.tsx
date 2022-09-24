@@ -69,7 +69,8 @@ const LeagueCard = ({
       .then((data) => {
         setData(data);
         setLoading(false);
-      });
+      })
+      .catch(() => setLoading(false));
   }, [page, league]);
 
   const color = "custom." + league.toLowerCase();

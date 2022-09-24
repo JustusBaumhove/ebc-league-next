@@ -52,7 +52,8 @@ const LeaguePage: NextPage<{ league: string; color: string }> = ({
       },
     })
       .then((res) => res.json())
-      .then((data) => data.length > 0 && setAverages(data[0]));
+      .then((data) => data.length > 0 && setAverages(data[0]))
+      .catch(() => console.log("Oops, something went wrong"));
   }, [league]);
 
   return (

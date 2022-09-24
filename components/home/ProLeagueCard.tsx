@@ -53,7 +53,8 @@ const ProLeagueCard = () => {
       .then((data) => {
         data.length > 0 && setData(data.slice(0, 5));
         setLoading(false);
-      });
+      })
+      .catch(() => setLoading(false));
   }, []);
 
   return (

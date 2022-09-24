@@ -53,7 +53,8 @@ const SmallLeagueCard = ({ league }: { league: string }) => {
       .then((data) => {
         data.length > 0 && setData(data.slice(0, 5));
         setLoading(false);
-      });
+      })
+      .catch(() => setLoading(false));
   }, [league]);
 
   const color = "custom." + league.toLowerCase();

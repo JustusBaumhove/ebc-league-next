@@ -57,7 +57,8 @@ const OpponentsTableCard = ({ id }: { id: number }) => {
       .then((data) => {
         data.length > 0 && setData(data);
         setLoading(false);
-      });
+      })
+      .catch(() => setLoading(false));
   }, [id]);
 
   return (
