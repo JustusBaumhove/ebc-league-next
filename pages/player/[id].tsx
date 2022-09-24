@@ -1,7 +1,7 @@
 import { GetServerSideProps, NextPage } from "next";
 import Header from "../../components/common/Header";
 import Navbar from "../../components/navbar/Navbar";
-import { Box, Card, Grid, Typography, useTheme } from "@mui/material";
+import { Box, Card, Grid, Skeleton, Typography, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SingleInfoCard from "../../components/cards/SingleInfoCard";
 import {
@@ -16,8 +16,6 @@ import {
 import LineChartCard from "../../components/player/LineChartCard";
 import WeaponstatsTableCard from "../../components/player/WeaponstatsTableCard";
 import OpponentsTableCard from "../../components/player/OpponentsTableCard";
-import Image from "next/image";
-import Wedges from "/public/wedges.svg";
 
 type Props = {
   id: number;
@@ -76,7 +74,8 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
 
     fetch(`/api/league/player/${id}/overview`)
       .then((res) => res.json())
-      .then((data) => data.length > 0 && setOverviewData(data[0]));
+      .then((data) => data.length > 0 && setOverviewData(data[0]))
+      .catch(() => console.error("Oops, something went wrong"));
 
     fetch(`/api/league/player/${id}/weeklystats`)
       .then((res) => res.json())
@@ -90,7 +89,8 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
         });
 
         setIsLoading(false);
-      });
+      })
+      .catch(() => console.error("Oops, something went wrong"));
   }, [id]);
 
   return (
@@ -108,12 +108,16 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
                   <Typography variant="h2" textAlign="center" fontWeight="bold">
                     {overviewData.name}
                   </Typography>
-                ) : isLoading ? (
-                  <Image src={Wedges} alt="Loading..." height={50} width={50} />
                 ) : (
-                  <Typography variant="h2" textAlign="center" fontWeight="bold">
-                    Player not found
-                  </Typography>
+                  <Box sx={{ display: "flex", justifyContent: "center" }}>
+                    <Typography
+                      variant="h2"
+                      textAlign="center"
+                      fontWeight="bold"
+                    >
+                      <Skeleton variant="text" width={"30rem"} />
+                    </Typography>
+                  </Box>
                 )}
               </Card>
             </Grid>
@@ -127,9 +131,13 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
                 <Grid item xs={12} md={6} lg={3}>
                   <SingleInfoCard
                     title="First seen"
-                    content={new Date(
-                      (overviewData?.time_add || 0) * 1000
-                    ).toLocaleString("en-GB")}
+                    content={
+                      overviewData
+                        ? new Date(overviewData.time_add * 1000).toLocaleString(
+                            "en-GB"
+                          )
+                        : "..."
+                    }
                     color="custom.pro"
                     icon={<HourglassBottom fontSize="inherit" />}
                   />
@@ -137,7 +145,7 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
                 <Grid item xs={12} md={6} lg={3}>
                   <SingleInfoCard
                     title="Kills"
-                    content={overviewData?.kills.toString() || "0"}
+                    content={overviewData?.kills.toString() || "..."}
                     color="custom.pro"
                     icon={<SportsEsports fontSize="inherit" />}
                   />
@@ -145,7 +153,7 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
                 <Grid item xs={12} md={6} lg={3}>
                   <SingleInfoCard
                     title="Deaths"
-                    content={overviewData?.deaths.toString() || "0"}
+                    content={overviewData?.deaths.toString() || "..."}
                     color="custom.pro"
                     icon={<Person fontSize="inherit" />}
                   />
@@ -153,7 +161,7 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
                 <Grid item xs={12} md={6} lg={3}>
                   <SingleInfoCard
                     title="Ratio"
-                    content={overviewData?.ratio.toFixed(2) || "0"}
+                    content={overviewData?.ratio.toFixed(2) || "..."}
                     color="custom.pro"
                     icon={<EmojiEvents fontSize="inherit" />}
                   />
@@ -161,7 +169,7 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
                 <Grid item xs={12} md={6} lg={3}>
                   <SingleInfoCard
                     title="Skill"
-                    content={overviewData?.skill.toString() || "0"}
+                    content={overviewData?.skill.toString() || "..."}
                     color="custom.pro"
                     icon={<Poll fontSize="inherit" />}
                   />
@@ -169,7 +177,7 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
                 <Grid item xs={12} md={6} lg={3}>
                   <SingleInfoCard
                     title="Win streak"
-                    content={overviewData?.winstreak.toString() || "0"}
+                    content={overviewData?.winstreak.toString() || "..."}
                     color="custom.pro"
                     icon={<EmojiEvents fontSize="inherit" />}
                   />
@@ -178,7 +186,9 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
                   <SingleInfoCard
                     title="Current Streak"
                     content={
-                      overviewData ? formatStreak(overviewData.curstreak) : "0"
+                      overviewData
+                        ? formatStreak(overviewData.curstreak)
+                        : "..."
                     }
                     color="custom.pro"
                     icon={<LinearScale fontSize="inherit" />}
@@ -187,7 +197,7 @@ const PlayerPage: NextPage<Props> = ({ id }) => {
                 <Grid item xs={12} md={6} lg={3}>
                   <SingleInfoCard
                     title="Rounds"
-                    content={overviewData?.rounds.toString() || "0"}
+                    content={overviewData?.rounds.toString() || "..."}
                     color="custom.pro"
                     icon={<Replay fontSize="inherit" />}
                   />

@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { Stack } from "@mui/system";
 import React from "react";
+import SkeletonTableRows from "../placeholders/SkeletonTableRows";
 
 type SearchRow = {
   id: number;
@@ -86,59 +87,63 @@ const SearchTable = ({ rows, page }: { rows: SearchRow[]; page: number }) => (
       </TableRow>
     </TableHead>
     <TableBody>
-      {rows.map((row: SearchRow, index: number) => {
-        const league = determineLeague(row.skill);
+      {rows.length === 0 ? (
+        <SkeletonTableRows rows={10} columns={8} hideOnSmall={3} />
+      ) : (
+        rows.map((row: SearchRow, index: number) => {
+          const league = determineLeague(row.skill);
 
-        return (
-          <TableRow key={index}>
-            <TableCell>{page * 25 + index + 1}</TableCell>
-            <TableCell>
-              <Link href={`/player/${row.id}`} underline="hover">
-                {row.name}
-              </Link>
-            </TableCell>
-            <TableCell align="right">
-              <Stack
-                component={"div"}
-                direction="row"
-                spacing={1}
-                divider={<Divider orientation="vertical" flexItem />}
-                justifyContent="flex-end"
-              >
-                <MUILink
-                  href={"/" + encodeURIComponent(league.toLowerCase())}
-                  underline="hover"
+          return (
+            <TableRow key={index}>
+              <TableCell>{page * 25 + index + 1}</TableCell>
+              <TableCell>
+                <Link href={`/player/${row.id}`} underline="hover">
+                  {row.name}
+                </Link>
+              </TableCell>
+              <TableCell align="right">
+                <Stack
+                  component={"div"}
+                  direction="row"
+                  spacing={1}
+                  divider={<Divider orientation="vertical" flexItem />}
+                  justifyContent="flex-end"
                 >
-                  {league}
-                </MUILink>
-                <Typography marginLeft={1} fontSize="inherit">
-                  #{row.lrank}
-                </Typography>
-              </Stack>
-            </TableCell>
-            <TableCell align="right">{row.skill}</TableCell>
-            <TableCell align="right">{row.ratio.toFixed(2)}</TableCell>
-            <TableCell
-              align="right"
-              sx={{ display: { xs: "none", lg: "table-cell" } }}
-            >
-              {row.kills}
-            </TableCell>
-            <TableCell
-              align="right"
-              sx={{ display: { xs: "none", lg: "table-cell" } }}
-            >
-              {row.deaths}
-            </TableCell>
-            <TableCell
-              align="right"
-              sx={{ display: { xs: "none", lg: "table-cell" } }}
-            >
-              {row.prestige}
-            </TableCell>
-          </TableRow>
-        );
-      })}
+                  <MUILink
+                    href={"/" + encodeURIComponent(league.toLowerCase())}
+                    underline="hover"
+                  >
+                    {league}
+                  </MUILink>
+                  <Typography marginLeft={1} fontSize="inherit">
+                    #{row.lrank}
+                  </Typography>
+                </Stack>
+              </TableCell>
+              <TableCell align="right">{row.skill}</TableCell>
+              <TableCell align="right">{row.ratio.toFixed(2)}</TableCell>
+              <TableCell
+                align="right"
+                sx={{ display: { xs: "none", lg: "table-cell" } }}
+              >
+                {row.kills}
+              </TableCell>
+              <TableCell
+                align="right"
+                sx={{ display: { xs: "none", lg: "table-cell" } }}
+              >
+                {row.deaths}
+              </TableCell>
+              <TableCell
+                align="right"
+                sx={{ display: { xs: "none", lg: "table-cell" } }}
+              >
+                {row.prestige}
+              </TableCell>
+            </TableRow>
+          );
+        })
+      )}
     </TableBody>
   </Table>
 );

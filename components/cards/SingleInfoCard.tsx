@@ -1,4 +1,4 @@
-import { Card, Grid, SvgIconProps } from "@mui/material";
+import { Card, Grid, Skeleton, SvgIconProps } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import React from "react";
 
@@ -49,7 +49,11 @@ const SingleInfoCard = ({ title, content, color, icon }: Props) => (
       >
         <Grid item>
           <Typography component="div" variant="h6" aria-label="content">
-            {content.toUpperCase()}
+            {content === "..." ? (
+              <Skeleton width={"10rem"} />
+            ) : (
+              content.toUpperCase()
+            )}
           </Typography>
         </Grid>
         <Grid item>

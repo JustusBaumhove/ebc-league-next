@@ -78,7 +78,8 @@ const Home: NextPage = () => {
           newData[key].content = data[key];
         }
         setServerInfo(newData);
-      });
+      })
+      .catch(() => console.log("Oops, something went wrong"));
   }, []);
 
   return (

@@ -1,5 +1,4 @@
 import {
-  Box,
   Card,
   CardContent,
   Grid,
@@ -18,6 +17,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Wedges from "/public/wedges.svg";
+import SkeletonTableRows from "../placeholders/SkeletonTableRows";
 
 type LeagueRow = {
   id: number;
@@ -42,6 +42,7 @@ const SmallLeagueCard = ({ league }: { league: string }) => {
 
   useEffect(() => {
     setLoading(true);
+    setData([]);
     fetch(`/api/league/${league}/0`, {
       method: "GET",
       headers: {
@@ -52,7 +53,8 @@ const SmallLeagueCard = ({ league }: { league: string }) => {
       .then((data) => {
         data.length > 0 && setData(data.slice(0, 5));
         setLoading(false);
-      });
+      })
+      .catch(() => setLoading(false));
   }, [league]);
 
   const color = "custom." + league.toLowerCase();
@@ -92,6 +94,7 @@ const SmallLeagueCard = ({ league }: { league: string }) => {
           justifyContent="center"
           alignItems="center"
           xs="auto"
+          spacing={2}
         >
           <Grid item>
             <Typography component="div" variant="h6">
@@ -110,32 +113,29 @@ const SmallLeagueCard = ({ league }: { league: string }) => {
               <ArrowForwardOutlined fontSize="inherit" />
             </IconButton>
           </Grid>
+          {loading && (
+            <Grid item>
+              <Image src={Wedges} alt="Wedges" width={30} height={30} />
+            </Grid>
+          )}
         </Grid>
       </Grid>
       <CardContent>
-        {data.length === 0 ? (
-          loading ? (
-            <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-              <Image src={Wedges} alt="Wedges" width={100} height={100} />
-            </Box>
-          ) : (
-            <Typography component="div" variant="body2">
-              No data available.
-            </Typography>
-          )
-        ) : (
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Rank</TableCell>
-                  <TableCell>Player</TableCell>
-                  <TableCell align="right">Skill</TableCell>
-                  <TableCell align="right">Ratio</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {data.map((row, index: number) => (
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Rank</TableCell>
+                <TableCell>Player</TableCell>
+                <TableCell align="right">Skill</TableCell>
+                <TableCell align="right">Ratio</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data.length === 0 ? (
+                <SkeletonTableRows rows={5} columns={4} hideOnSmall={0} />
+              ) : (
+                data.map((row, index: number) => (
                   <TableRow key={index}>
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>
@@ -146,11 +146,11 @@ const SmallLeagueCard = ({ league }: { league: string }) => {
                     <TableCell align="right">{row.skill}</TableCell>
                     <TableCell align="right">{row.ratio.toFixed(2)}</TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        )}
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </CardContent>
     </Card>
   );

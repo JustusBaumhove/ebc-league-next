@@ -18,6 +18,7 @@ import { Star } from "@mui/icons-material";
 import { Box } from "@mui/system";
 import Image from "next/image";
 import Wedges from "/public/wedges.svg";
+import SkeletonTableRows from "../placeholders/SkeletonTableRows";
 
 type LeagueRow = {
   id: number;
@@ -31,7 +32,7 @@ type LeagueRow = {
 
 type LeagueRows = Array<LeagueRow>;
 
-const ProLeagueCard = ({
+const LeagueCard = ({
   league,
   maxPlayers,
 }: {
@@ -68,7 +69,8 @@ const ProLeagueCard = ({
       .then((data) => {
         setData(data);
         setLoading(false);
-      });
+      })
+      .catch(() => setLoading(false));
   }, [page, league]);
 
   const color = "custom." + league.toLowerCase();
@@ -109,7 +111,7 @@ const ProLeagueCard = ({
           justifyContent="flex-start"
           alignItems="center"
           xs="auto"
-          spacing={4}
+          spacing={2}
           aria-label="LeagueName"
         >
           <Grid item>
@@ -119,7 +121,7 @@ const ProLeagueCard = ({
                 " League"}
             </Typography>
           </Grid>
-          {loading && data.length > 0 && (
+          {loading && (
             <Grid item>
               <Box sx={{ display: "flex", justifyContent: "space-around" }}>
                 <Image src={Wedges} alt="Wedges" width={30} height={30} />
@@ -129,47 +131,39 @@ const ProLeagueCard = ({
         </Grid>
       </Grid>
       <CardContent>
-        {data.length === 0 ? (
-          loading ? (
-            <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-              <Image src={Wedges} alt="Wedges" width={100} height={100} />
-            </Box>
-          ) : (
-            <Typography component="div" variant="body2">
-              No data available.
-            </Typography>
-          )
-        ) : (
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Rank</TableCell>
-                  <TableCell>Player</TableCell>
-                  <TableCell align="right">Skill</TableCell>
-                  <TableCell align="right">Ratio</TableCell>
-                  <TableCell
-                    align="right"
-                    sx={{ display: { xs: "none", lg: "table-cell" } }}
-                  >
-                    Kills
-                  </TableCell>
-                  <TableCell
-                    align="right"
-                    sx={{ display: { xs: "none", lg: "table-cell" } }}
-                  >
-                    Deaths
-                  </TableCell>
-                  <TableCell
-                    align="right"
-                    sx={{ display: { xs: "none", lg: "table-cell" } }}
-                  >
-                    Prestige
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {data.map((row, index: number) => (
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Rank</TableCell>
+                <TableCell>Player</TableCell>
+                <TableCell align="right">Skill</TableCell>
+                <TableCell align="right">Ratio</TableCell>
+                <TableCell
+                  align="right"
+                  sx={{ display: { xs: "none", lg: "table-cell" } }}
+                >
+                  Kills
+                </TableCell>
+                <TableCell
+                  align="right"
+                  sx={{ display: { xs: "none", lg: "table-cell" } }}
+                >
+                  Deaths
+                </TableCell>
+                <TableCell
+                  align="right"
+                  sx={{ display: { xs: "none", lg: "table-cell" } }}
+                >
+                  Prestige
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data.length === 0 ? (
+                <SkeletonTableRows rows={10} columns={7} hideOnSmall={3} />
+              ) : (
+                data.map((row, index: number) => (
                   <TableRow key={index}>
                     <TableCell>{page * itemCount + index + 1}</TableCell>
                     <TableCell>
@@ -198,11 +192,11 @@ const ProLeagueCard = ({
                       {row.prestige}
                     </TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        )}
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </CardContent>
       <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
         <Button
@@ -226,4 +220,4 @@ const ProLeagueCard = ({
   );
 };
 
-export default ProLeagueCard;
+export default LeagueCard;

@@ -1,5 +1,4 @@
 import {
-  Box,
   Card,
   CardContent,
   Grid,
@@ -20,6 +19,7 @@ import {
 import React, { useEffect } from "react";
 import Image from "next/image";
 import Wedges from "/public/wedges.svg";
+import SkeletonTableRows from "../placeholders/SkeletonTableRows";
 
 type WeaponstatsRow = {
   weapon_id: number;
@@ -57,7 +57,8 @@ const WeaponstatsTableCard = ({ id }: { id: number }) => {
       .then((data) => {
         if (data.length > 0) setData(data);
         setLoading(false);
-      });
+      })
+      .catch(() => setLoading(false));
   }, [id]);
 
   return (
@@ -95,47 +96,37 @@ const WeaponstatsTableCard = ({ id }: { id: number }) => {
           justifyContent="center"
           alignItems="center"
           xs="auto"
+          spacing={2}
         >
           <Grid item>
             <Typography component="div" variant="h6" fontWeight="bold">
               Weapon usage
             </Typography>
           </Grid>
+          {loading && (
+            <Grid item>
+              <Image src={Wedges} alt="Loading..." width={30} height={30} />
+            </Grid>
+          )}
         </Grid>
       </Grid>
-      {data.length === 0 ? (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100%",
-            padding: 2,
-          }}
-        >
-          {loading ? (
-            <Image src={Wedges} alt="Loading..." width={100} height={100} />
-          ) : (
-            <Typography variant="body2" color="textSecondary">
-              No data available
-            </Typography>
-          )}
-        </Box>
-      ) : (
-        <CardContent>
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>#</TableCell>
-                  <TableCell>Name</TableCell>
-                  <TableCell align="right">Gun efficacy</TableCell>
-                  <TableCell align="right">Kills</TableCell>
-                  <TableCell align="right">Deaths</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {data.map((row, index: number) => (
+      <CardContent>
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>#</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell align="right">Gun efficacy</TableCell>
+                <TableCell align="right">Kills</TableCell>
+                <TableCell align="right">Deaths</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data.length === 0 ? (
+                <SkeletonTableRows rows={10} columns={5} hideOnSmall={0} />
+              ) : (
+                data.map((row, index: number) => (
                   <TableRow key={index}>
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>{convertWeaponName(row.name)}</TableCell>
@@ -146,12 +137,12 @@ const WeaponstatsTableCard = ({ id }: { id: number }) => {
                     <TableCell align="right">{row.kills}</TableCell>
                     <TableCell align="right">{row.deaths}</TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </CardContent>
-      )}
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </CardContent>
     </Card>
   );
 };

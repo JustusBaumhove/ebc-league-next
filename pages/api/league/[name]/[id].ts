@@ -37,8 +37,9 @@ export default async function handler(
   const itemCount = parseInt(<string>process.env.ITEMS_PER_PAGE);
   const offset = itemCount * parseInt(<string>req.query.id);
 
-  const data = await db.execute(
-    `SELECT c.id, c.name, x.skill, x.ratio, x.kills, x.deaths, p.prestige
+  await db
+    .execute(
+      `SELECT c.id, c.name, x.skill, x.ratio, x.kills, x.deaths, p.prestige
          FROM clients AS c
                   JOIN xlr_playerstats AS x ON x.client_id = c.id
                   JOIN player_core AS p ON p.guid = c.guid
@@ -46,8 +47,13 @@ export default async function handler(
            AND x.skill <= ?
          ORDER BY x.skill DESC
          LIMIT ?, ${itemCount};`,
-    [leagueBounds[league]["lower"], leagueBounds[league]["upper"], offset]
-  );
-
-  res.status(200).json(data);
+      [leagueBounds[league]["lower"], leagueBounds[league]["upper"], offset]
+    )
+    .then((data: any) => {
+      res.status(200).json(data);
+    })
+    .catch((err: any) => {
+      console.error(err);
+      res.status(500).json("Internal server error.");
+    });
 }

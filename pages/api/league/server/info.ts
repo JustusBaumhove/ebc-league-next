@@ -7,18 +7,24 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const data = await db.execute(`SELECT * FROM current_svars_28950`, []);
-  const mapData = await db.execute(
-    "SELECT name FROM xlr_mapstats ORDER BY rounds DESC LIMIT 1",
-    []
-  );
-  const playersData = await db.execute(
-    "SELECT COUNT(id) AS 'players' FROM xlr_playerstats;",
-    []
-  );
-  const weaponsData = await db.execute(
-    "SELECT name FROM xlr_weaponstats ORDER BY kills DESC LIMIT 1",
-    []
-  );
+  const mapData = await db
+    .execute("SELECT name FROM xlr_mapstats ORDER BY rounds DESC LIMIT 1", [])
+    .catch((err: any) => {
+      console.error(err);
+      res.status(500).json("Internal server error.");
+    });
+  const playersData = await db
+    .execute("SELECT COUNT(id) AS 'players' FROM xlr_playerstats;", [])
+    .catch((err: any) => {
+      console.error(err);
+      res.status(500).json("Internal server error.");
+    });
+  const weaponsData = await db
+    .execute("SELECT name FROM xlr_weaponstats ORDER BY kills DESC LIMIT 1", [])
+    .catch((err: any) => {
+      console.error(err);
+      res.status(500).json("Internal server error.");
+    });
 
   const formattedData = {
     "server ip": data[0].value + ":" + data[1].value,
