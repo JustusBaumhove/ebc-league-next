@@ -8,8 +8,9 @@ export default async function handler(
 ) {
   const id = parseInt(<string>req.query.id);
 
-  const data = await db.execute(
-    `SELECT xt.client_id         as 'opponent_client_id',
+  await db
+    .execute(
+      `SELECT xt.client_id         as 'opponent_client_id',
             ct.\`name\`          as 'opponent_name',
             xt.skill             as 'opponent_skill',
             xo.kills,
@@ -24,8 +25,13 @@ export default async function handler(
      ORDER BY confrontations DESC
      LIMIT 7
     `,
-    [id]
-  );
-
-  res.status(200).json(data);
+      [id]
+    )
+    .then((data: any) => {
+      res.status(200).json(data);
+    })
+    .catch((err: any) => {
+      console.error(err);
+      res.status(500).json("Internal server error.");
+    });
 }

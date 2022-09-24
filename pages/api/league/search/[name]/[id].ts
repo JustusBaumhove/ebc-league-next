@@ -10,8 +10,9 @@ export default async function handler(
   const itemCount = parseInt(<string>process.env.ITEMS_PER_PAGE);
   const offset = itemCount * parseInt(<string>req.query.id);
 
-  let data = await db.execute(
-    `SELECT c.id,
+  await db
+    .execute(
+      `SELECT c.id,
                 c.name,
                 x.skill,
                 x.ratio,
@@ -34,8 +35,13 @@ export default async function handler(
          WHERE c.name LIKE ?
          ORDER BY c.time_edit DESC
          LIMIT ?, ${itemCount};`,
-    [name, offset]
-  );
-
-  res.status(200).json(data);
+      [name, offset]
+    )
+    .then((data: any) => {
+      res.status(200).json(data);
+    })
+    .catch((err: any) => {
+      console.error(err);
+      res.status(500).json("Internal server error.");
+    });
 }
