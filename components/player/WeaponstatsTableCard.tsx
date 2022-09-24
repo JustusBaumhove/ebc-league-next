@@ -123,7 +123,7 @@ const WeaponstatsTableCard = ({ id }: { id: number }) => {
             </TableHead>
             <TableBody>
               {data.length === 0 ? (
-                <SkeletonTableRows rows={10} columns={5} />
+                <SkeletonTableRows rows={10} columns={5} hideOnSmall={0} />
               ) : (
                 data.map((row, index: number) => (
                   <TableRow key={index}>
